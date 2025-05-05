@@ -31,7 +31,7 @@ project-root/
 │   ├── router/             # Cấu hình routing (React Router)
 │   ├── constants/          # Các constant values
 │   ├── styles/             # Global styles, theme, variables...
-│   ├── App.jsx             # Root component
+│   ├── App.tsx             # Root component
 │   └── index.jsx           # Entry point
 │
 ├── .gitignore              # Git ignore file

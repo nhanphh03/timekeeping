@@ -1,5 +1,4 @@
-import React from 'react';
-import {Box, Grid, InputAdornment, Typography} from '@mui/material';
+import {Box, Grid, InputAdornment, SxProps, Theme, Typography} from '@mui/material';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
@@ -8,9 +7,26 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import SettingsIcon from '@mui/icons-material/Settings';
+import * as React from "react";
 
-const Footer = ({sx }) => {
+interface FooterProps {
+    sx?: SxProps<Theme>;
+    open: boolean;
+    onClose: (value: string) => void;
+}
 
+
+function Footer({sx}: FooterProps) {
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (value: string) => {
+        setOpen(false);
+    };
     return (
         <Grid sx={{backgroundColor: '#ffffff',
             display: 'flex',
@@ -23,10 +39,17 @@ const Footer = ({sx }) => {
             boxShadow: 3,
             ...sx,}}>
 
+            <Grid item xs={1}>
+                <Box sx={{ml: 1, mt: 1}}>
+                    <SettingsIcon fontSize="medium"
+                                  onClick={handleClickOpen}
+                                  sx={{cursor: 'pointer'}}/>
+                </Box>
+            </Grid>
             <Grid item xs={5} sx={{height: '100%'}}>
                 <Box
                     component="form"
-                    sx={{ '& > :not(style)': { mt: 2, width: '100%', ml: 2 } }}
+                    sx={{ '& > :not(style)': { mt: 2, width: '100%'} }}
                     noValidate
                     autoComplete="off"
                 >
@@ -47,9 +70,8 @@ const Footer = ({sx }) => {
                     />
                 </Box>
             </Grid>
-            <Grid item xs={1}></Grid>
             <Grid item xs={3}>
-                <Box sx={{display: 'flex', ml: 'auto' }}>
+                <Box sx={{display: 'flex', ml: 3}}>
                     <Typography
                         sx={{
                             display: 'flex',
@@ -71,7 +93,7 @@ const Footer = ({sx }) => {
                 </Box>
             </Grid>
             <Grid item xs={3}>
-                <Box sx={{ml: 'auto'}}>
+                <Box sx={{ml: 2}}>
                     <Stack direction="row" spacing={2}>
                         <IconButton>
                             <ArrowBackIosIcon />

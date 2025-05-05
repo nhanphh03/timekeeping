@@ -1,27 +1,27 @@
 import { Box, Typography, SxProps, Theme } from '@mui/material';
-import React, { ReactNode } from 'react';
+import * as React from "react";
 
 interface DayItemProps {
-    children: ReactNode;
+    child: string;
     sx?: SxProps<Theme>;
     status?: 'active' | 'inactive' | string;
 }
 
-const DayItem: React.FC<DayItemProps> = ({ children, sx, status }) => {
+function DayItem(props: Readonly<DayItemProps>) {
     return (
         <Box
             sx={{
-                backgroundColor: status === 'active' ? '#00bcd4' : '#ffffff',
+                backgroundColor: props.status === 'active' ? '#00bcd4' : '#ffffff',
                 textAlign: 'center',
                 borderRadius: 2,
                 boxShadow: 3,
                 px: 2,
                 py: 1,
-                ...sx,
+                ...props.sx,
             }}
         >
             <Typography variant="body1" fontWeight={500}>
-                {children}
+                {props.child}
             </Typography>
             <Typography variant="body1" fontWeight={500}>
                 03/05/2025

@@ -1,11 +1,10 @@
-import React from 'react';
-import { Box, Grid } from '@mui/material';
+import {Box, Grid} from '@mui/material';
 import Stack from '@mui/system/Stack';
-import TimekeepingList from "./components/item/TimekeepingList.jsx";
+import TimekeepingList from "./components/item/TimekeepingList.js";
 import DayItemList from "./components/item/DayItemList.jsx";
 import WebcamFaceDetectionV2 from "./components/WebcamFaceDetectionV2.jsx";
-import Footer from "./components/layout/Footer.jsx";
-import FirstItemTimekeeping from "./components/item/FirstItemTimekeeping.jsx";
+import Footer from "./components/layout/Footer.js";
+import FirstItemTimekeeping from "./components/item/FirstItemTimekeeping";
 
 function App() {
     return (
@@ -47,7 +46,7 @@ function App() {
                 </Box>
                 <Box sx={{ height: '1%', width: '100%'}}></Box>
                 <Box sx={{ height: '7%', width: '98%', ml: 2}}>
-                    <Footer></Footer>
+                    <Footer/>
                 </Box>
             </Grid>
         </Grid>
