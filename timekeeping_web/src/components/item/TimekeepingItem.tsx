@@ -1,19 +1,11 @@
-import {Box, Grid, SxProps, Theme, Typography} from '@mui/material';
+import {Box, Grid, Typography} from '@mui/material';
 import * as React from "react";
-import {ReactNode} from "react";
+import TimekeepingItemProps from "../../interfaces/TimekeepingItemProps";
 
-interface TimekeepingItemProps {
-    index: ReactNode;
-    imageSrc: string;
-    name: string;
-    timeIn: string;
-    timeOut: string;
-    title: string;
-    sx?: SxProps<Theme>;
-}
-function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
+export default function TimekeepingItem({ index, imageSrc, name, timeIn,timeOut, title,
+                                            sx }: Readonly<TimekeepingItemProps>) {
     return (
-        <Grid sx={{backgroundColor: props.index % 2 === 0 ? '#ffffff' : '#ececec',
+        <Grid sx={{backgroundColor: index % 2 === 0 ? '#ffffff' : '#ececec',
             display: 'flex',
             alignItems: 'center',
             gap: 2,
@@ -21,7 +13,7 @@ function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
             borderRadius: 2,
             boxShadow: 3,
             px: 2,
-            ...props.sx,}}>
+            ...sx,}}>
             <Grid size={2}>
                 <Box sx={{display: 'flex'}}>
                     <Box sx={{m: 'auto',}}>
@@ -38,14 +30,14 @@ function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
                             }}
                             variant="body2"
                         >
-                            {props.index}
+                            {index}
                         </Typography>
                     </Box>
                     <Box>
                         <img
                             border='1px solid #8a8686'
-                            src={props.imageSrc}
-                            alt={props.name}
+                            src={imageSrc}
+                            alt={name}
                             style={{ width: 74, height: 74, borderRadius: '10%'}}
                         />
                     </Box>
@@ -54,26 +46,24 @@ function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
             <Grid size={5}>
                 <Box>
                     <Typography sx={{}} variant="subtitle1" fontSize={24} fontWeight={600}>
-                        {props.name}
+                        {name}
                     </Typography>
                     <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
-                        {props.title}
+                        {title}
                     </Typography>
                 </Box>
             </Grid>
             <Grid size={3}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
-                    {props.timeIn}
+                    {timeIn}
                 </Typography>
             </Grid>
             <Grid size={2}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
-                    {props.timeOut}
+                    {timeOut}
                 </Typography>
             </Grid>
 
         </Grid>
     );
 };
-
-export default TimekeepingItem;

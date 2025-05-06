@@ -1,16 +1,10 @@
-import {Box, Grid, SxProps, Theme, Typography} from '@mui/material';
+import {Box, Grid, Typography} from '@mui/material';
 import * as React from "react";
+import {ItemTimekeepingProps} from "../../interfaces/ItemTimekeepingProps";
 
-interface FirstItemTimekeepingProps {
-    imageSrc: string;
-    name: string;
-    timeIn: string;
-    timeOut: string;
-    title: string;
-    sx?: SxProps<Theme>;
-}
 
-function FirstItemTimekeeping (props: Readonly<FirstItemTimekeepingProps>) {
+export default function FirstItemTimekeeping({ index, imageSrc, name, timeIn,timeOut, title,
+    sx }: Readonly<ItemTimekeepingProps>) {
     return (
         <Grid sx={{backgroundColor: '#e4fcff',
             display: 'flex',
@@ -22,8 +16,8 @@ function FirstItemTimekeeping (props: Readonly<FirstItemTimekeepingProps>) {
             width: '98%',
             ml: 1,
             boxShadow: 3,
-            ...props.sx,}}>
-            <Grid item size={2} sx={{display: 'flex'}}>
+            ...sx,}}>
+            <Grid size={2} sx={{display: 'flex'}}>
                 <Box sx={{m: 'auto',}}>
                     <Typography
                         sx={{
@@ -44,8 +38,8 @@ function FirstItemTimekeeping (props: Readonly<FirstItemTimekeepingProps>) {
                 <Box sx={{display: 'flex', ml: 2}}>
                     <Box>
                         <img
-                            src={props.imageSrc}
-                            alt={props.name}
+                            src={imageSrc}
+                            alt={name}
                             style={{ width: 74,
                                 height: 74,
                                 borderRadius: '10%',
@@ -57,21 +51,21 @@ function FirstItemTimekeeping (props: Readonly<FirstItemTimekeepingProps>) {
             <Grid size={5}>
                 <Box sx={{ml: 6}}>
                     <Typography sx={{}} variant="subtitle1" fontSize={24} fontWeight={600}>
-                        {props.name}
+                        {name}
                     </Typography>
                     <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
-                        {props.title}
+                        {title}
                     </Typography>
                 </Box>
             </Grid>
             <Grid size={3}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
-                    {props.timeIn}
+                    {timeIn}
                 </Typography>
             </Grid>
             <Grid size={2}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
-                    {props.timeOut}
+                    {timeOut}
                 </Typography>
             </Grid>
 

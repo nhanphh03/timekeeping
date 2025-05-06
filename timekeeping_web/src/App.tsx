@@ -2,7 +2,7 @@ import { Box, Grid } from '@mui/material';
 import Stack from '@mui/system/Stack';
 import TimekeepingList from "./components/item/TimekeepingList.js";
 import DayItemList from "./components/item/DayItemList.jsx";
-import WebcamFaceDetectionV2 from "./components/WebcamFaceDetectionV2.jsx";
+import WebcamFaceDetectionV2 from "./components/WebcamFaceDetectionV2.js";
 import Footer from "./components/layout/Footer.js";
 import FirstItemTimekeeping from "./components/item/FirstItemTimekeeping";
 import { CameraConfig } from './interfaces/CameraConfig.js';
@@ -14,14 +14,14 @@ function App() {
 
     return (
         <Grid container sx={{ height: '100vh' }}>
-            <Grid item size={5} sx={{ height: '100%' }}>
+            <Grid size={5} sx={{ height: '100%' }}>
                 <Box sx={{
                     height: '54%',
                     width: '100%',
                     borderRadius: 2,
                     boxShadow: 3,
                 }}>
-                    <WebcamFaceDetectionV2 videoWidth={750} videoHeight={500} sx={{ pt: 2, pl: 2 }} />
+                    <WebcamFaceDetectionV2 cameraConfig={cameraConfig} videoWidth={750} videoHeight={500} sx={{ pt: 2, pl: 2 }} />
                 </Box>
                 <Box sx={{ height: '1%', width: '100%' }}></    Box>
                 <Box sx={{
@@ -33,7 +33,7 @@ function App() {
                 </Box>
             </Grid>
 
-            <Grid item size={7} sx={{ height: '100%' }} >
+            <Grid size={7} sx={{ height: '100%' }} >
                 <Box sx={{ height: '1%', width: '100%' }}></Box>
                 <Box sx={{ height: '10%', width: '100%' }}>
                     <DayItemList ></DayItemList>

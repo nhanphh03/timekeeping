@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import * as faceapi from 'face-api.js';
 import * as tf from '@tensorflow/tfjs'; // thêm import TensorFlow
 import {Box} from '@mui/material';
 
 // export default function DayItemList({ cameraConfig }: DayItemListProps) {
 //<DayItem cameraConfig={cameraConfig} child = 'Monday' status = 'inActive' sx={{width: '10%', height: 60}}/>
-const WebcamFaceDetection = ({ sx, videoWidth = 750, videoHeight = 500 }) => {
+export default function WebcamFaceDetection = ({ sx, videoWidth = 750, videoHeight = 500 }) => {
     
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -117,4 +117,3 @@ const WebcamFaceDetection = ({ sx, videoWidth = 750, videoHeight = 500 }) => {
     );
 };
 
-export default WebcamFaceDetection;

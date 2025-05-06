@@ -8,8 +8,9 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import ChangeConfigCamera from '../dialog/ChangeConfigCamera';
+import {CameraConfigProps} from "../../interfaces/CameraConfigProps";
 
-export default function Footer({sx, onSaveConfig}: FooterProps) {
+export default function Footer({sx, onSave}: CameraConfigProps) {
 
 
     return (
@@ -26,7 +27,7 @@ export default function Footer({sx, onSaveConfig}: FooterProps) {
 
             <Grid item xs={1}>
                 <Box sx={{ml: 1, mt: 1}}>
-                    <ChangeConfigCamera onSave={onSaveConfig}/>
+                    <ChangeConfigCamera onSave={onSave}/>
                 </Box>
             </Grid>
             <Grid item xs={5} sx={{height: '100%'}}>

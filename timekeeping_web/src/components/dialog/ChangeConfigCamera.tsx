@@ -11,9 +11,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import Slider from '@mui/material/Slider';
-import {ChangeConfigCameraProps} from "../interfaces/ChangeConfigCameraProps.ts";
+import {Typography} from "@mui/material";
+import {CameraConfigProps} from "../../interfaces/CameraConfigProps";
 
-export default function ChangeConfigCamera({ onSave }: ChangeConfigCameraProps) {
+export default function ChangeConfigCamera({ onSave }: Readonly<CameraConfigProps>) {
     const [open, setOpen] = React.useState(false);
     const [modelFaceDetector, setModelFaceDetector] = React.useState('');
     const [minConfidence, setMinConfidence] = React.useState(0.5);
@@ -29,7 +30,7 @@ export default function ChangeConfigCamera({ onSave }: ChangeConfigCameraProps) 
     };
 
     const handleChange = (event: SelectChangeEvent) => {
-        setModelFaceDetector(event.target.value as string);
+        setModelFaceDetector(event.target.value);
     };
 
     const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
@@ -83,7 +84,7 @@ export default function ChangeConfigCamera({ onSave }: ChangeConfigCameraProps) 
                     <Box sx={{display: 'flex', gap: 2, mt: 4}}>
                         {modelFaceDetector === 'ssd_mobilenetv1' && (
                             <Box sx={{width: 300}}>
-                                <label>Min Confidence:</label>
+                                <Typography>Min Confidence</Typography>
                                 <Slider
                                     value={minConfidence}
                                     onChange={(event, value) => {
@@ -117,7 +118,7 @@ export default function ChangeConfigCamera({ onSave }: ChangeConfigCameraProps) 
                                 </FormControl>
 
                                 <Box sx={{width: 300, mt: 3}}>
-                                    <label>Score Threshold:</label>
+                                    <Typography>Score Threshold</Typography>
                                     <Slider
                                         value={scoreThreshold}
                                         onChange={(event, value) => {
