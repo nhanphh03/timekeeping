@@ -23,7 +23,7 @@ function FirstItemTimekeeping (props: Readonly<FirstItemTimekeepingProps>) {
             ml: 1,
             boxShadow: 3,
             ...props.sx,}}>
-            <Grid item xs={2} sx={{display: 'flex'}}>
+            <Grid item size={2} sx={{display: 'flex'}}>
                 <Box sx={{m: 'auto',}}>
                     <Typography
                         sx={{
@@ -54,7 +54,7 @@ function FirstItemTimekeeping (props: Readonly<FirstItemTimekeepingProps>) {
                     </Box>
                 </Box>
             </Grid>
-            <Grid xs={5}>
+            <Grid size={5}>
                 <Box sx={{ml: 6}}>
                     <Typography sx={{}} variant="subtitle1" fontSize={24} fontWeight={600}>
                         {props.name}
@@ -64,12 +64,12 @@ function FirstItemTimekeeping (props: Readonly<FirstItemTimekeepingProps>) {
                     </Typography>
                 </Box>
             </Grid>
-            <Grid xs={3}>
+            <Grid size={3}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
                     {props.timeIn}
                 </Typography>
             </Grid>
-            <Grid xs={2}>
+            <Grid size={2}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
                     {props.timeOut}
                 </Typography>
