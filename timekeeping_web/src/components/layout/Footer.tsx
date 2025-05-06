@@ -8,6 +8,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import SettingsIcon from '@mui/icons-material/Settings';
+import ChangeConfigCamera from "./component/ChangeConfigCamera.tsx";
 import * as React from "react";
 
 interface FooterProps {
@@ -41,9 +42,7 @@ function Footer({sx}: FooterProps) {
 
             <Grid item xs={1}>
                 <Box sx={{ml: 1, mt: 1}}>
-                    <SettingsIcon fontSize="medium"
-                                  onClick={handleClickOpen}
-                                  sx={{cursor: 'pointer'}}/>
+                    <ChangeConfigCamera></ChangeConfigCamera>
                 </Box>
             </Grid>
             <Grid item xs={5} sx={{height: '100%'}}>
