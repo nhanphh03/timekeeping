@@ -9,7 +9,7 @@ import FirstItemTimekeeping from "./components/item/FirstItemTimekeeping";
 function App() {
     return (
         <Grid container sx={{ height: '100vh' }}>
-            <Grid item xs={5} sx={{ height: '100%' }}>
+            <Grid item size={5} sx={{ height: '100%' }}>
                 <Box sx={{ height: '54%',
                     width: '100%',
                     borderRadius: 2,
@@ -25,7 +25,7 @@ function App() {
                 </Box>
             </Grid>
 
-            <Grid item xs={7} sx={{ height: '100%' }} >
+            <Grid item size={7} sx={{ height: '100%' }} >
                 <Box sx={{ height: '1%', width: '100%'}}></Box>
                 <Box sx={{ height: '10%', width: '100%'}}>
                     <DayItemList ></DayItemList>
