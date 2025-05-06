@@ -3,7 +3,10 @@ import * as faceapi from 'face-api.js';
 import * as tf from '@tensorflow/tfjs'; // thêm import TensorFlow
 import {Box} from '@mui/material';
 
+// export default function DayItemList({ cameraConfig }: DayItemListProps) {
+//<DayItem cameraConfig={cameraConfig} child = 'Monday' status = 'inActive' sx={{width: '10%', height: 60}}/>
 const WebcamFaceDetection = ({ sx, videoWidth = 750, videoHeight = 500 }) => {
+    
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
 

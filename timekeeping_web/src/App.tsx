@@ -1,4 +1,4 @@
-import {Box, Grid} from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import Stack from '@mui/system/Stack';
 import TimekeepingList from "./components/item/TimekeepingList.js";
 import DayItemList from "./components/item/DayItemList.jsx";
@@ -12,35 +12,33 @@ function App() {
 
     const [cameraConfig, setCameraConfig] = React.useState<CameraConfig | null>(null);
 
-    const handleSaveConfig = (config: CameraConfig) => {
-        console.log('Saved config:', config);
-        setCameraConfig(config); // Cập nhật state với config mới
-    };
-
     return (
         <Grid container sx={{ height: '100vh' }}>
             <Grid item size={5} sx={{ height: '100%' }}>
-                <Box sx={{ height: '54%',
+                <Box sx={{
+                    height: '54%',
                     width: '100%',
                     borderRadius: 2,
-                    boxShadow: 3,}}>
-                    <WebcamFaceDetectionV2 videoWidth={750} videoHeight={500} sx={{pt: 2, pl: 2 }} />
+                    boxShadow: 3,
+                }}>
+                    <WebcamFaceDetectionV2 videoWidth={750} videoHeight={500} sx={{ pt: 2, pl: 2 }} />
                 </Box>
                 <Box sx={{ height: '1%', width: '100%' }}></    Box>
                 <Box sx={{
                     borderRadius: 2,
                     boxShadow: 3,
                     height: '45%',
-                    width: '100%' }}>
+                    width: '100%'
+                }}>
                 </Box>
             </Grid>
 
             <Grid item size={7} sx={{ height: '100%' }} >
-                <Box sx={{ height: '1%', width: '100%'}}></Box>
-                <Box sx={{ height: '10%', width: '100%'}}>
+                <Box sx={{ height: '1%', width: '100%' }}></Box>
+                <Box sx={{ height: '10%', width: '100%' }}>
                     <DayItemList ></DayItemList>
                 </Box>
-                <Box sx={{ height: '12%', width: '100%'}}>
+                <Box sx={{ height: '12%', width: '100%' }}>
                     <FirstItemTimekeeping
                         imageSrc="http://100.83.174.102:8181/api/v1/file/media/avatar/2003"
                         name="Phạm Hữu Nhân"
@@ -49,14 +47,14 @@ function App() {
                         timeOut="17:21:33">
                     </FirstItemTimekeeping>
                 </Box>
-                <Box sx={{ height: '69%', width: '100%', overflowY: 'auto'}}>
+                <Box sx={{ height: '69%', width: '100%', overflowY: 'auto' }}>
                     <Stack spacing={1} sx={{}}>
                         <TimekeepingList></TimekeepingList>
                     </Stack>
                 </Box>
-                <Box sx={{ height: '1%', width: '100%'}}></Box>
-                <Box sx={{ height: '7%', width: '98%', ml: 2}}>
-                    <Footer/>
+                <Box sx={{ height: '1%', width: '100%' }}></Box>
+                <Box sx={{ height: '7%', width: '98%', ml: 2 }}>    
+                    <Footer onSaveConfig={setCameraConfig} />
                 </Box>
             </Grid>
         </Grid>

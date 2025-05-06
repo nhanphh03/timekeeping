@@ -7,35 +7,10 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import SettingsIcon from '@mui/icons-material/Settings';
 import ChangeConfigCamera from '../dialog/ChangeConfigCamera';
-import { CameraConfig } from '../../interfaces/CameraConfig';
-import * as React from "react";
-import TestProp from '../item/TestProp';
 
-interface FooterProps {
-    sx?: SxProps<Theme>;
-    open: boolean;
-    onClose: (value: string) => void;
-}
+export default function Footer({sx, onSaveConfig}: FooterProps) {
 
-
-function Footer({sx}: FooterProps) {
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = (value: string) => {
-        setOpen(false);
-    };
-
-    const [cameraConfig, setCameraConfig] = React.useState<CameraConfig | null>(null);
-
-    const handleSaveConfig = (config: CameraConfig) => {
-        setCameraConfig(config); 
-    };
 
     return (
         <Grid sx={{backgroundColor: '#ffffff',
@@ -51,8 +26,7 @@ function Footer({sx}: FooterProps) {
 
             <Grid item xs={1}>
                 <Box sx={{ml: 1, mt: 1}}>
-                    <ChangeConfigCamera  onSave={handleSaveConfig}></ChangeConfigCamera>
-                    <TestProp cameraConfig={cameraConfig} />
+                    <ChangeConfigCamera onSave={onSaveConfig}/>
                 </Box>
             </Grid>
             <Grid item xs={5} sx={{height: '100%'}}>
@@ -129,4 +103,3 @@ function Footer({sx}: FooterProps) {
     );
 };
 
-export default Footer;
