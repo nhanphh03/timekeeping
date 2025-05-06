@@ -8,8 +8,10 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import SettingsIcon from '@mui/icons-material/Settings';
-import ChangeConfigCamera from "./component/ChangeConfigCamera.tsx";
+import ChangeConfigCamera from '../dialog/ChangeConfigCamera';
+import { CameraConfig } from '../../interfaces/CameraConfig';
 import * as React from "react";
+import TestProp from '../item/TestProp';
 
 interface FooterProps {
     sx?: SxProps<Theme>;
@@ -28,6 +30,13 @@ function Footer({sx}: FooterProps) {
     const handleClose = (value: string) => {
         setOpen(false);
     };
+
+    const [cameraConfig, setCameraConfig] = React.useState<CameraConfig | null>(null);
+
+    const handleSaveConfig = (config: CameraConfig) => {
+        setCameraConfig(config); 
+    };
+
     return (
         <Grid sx={{backgroundColor: '#ffffff',
             display: 'flex',
@@ -42,7 +51,8 @@ function Footer({sx}: FooterProps) {
 
             <Grid item xs={1}>
                 <Box sx={{ml: 1, mt: 1}}>
-                    <ChangeConfigCamera></ChangeConfigCamera>
+                    <ChangeConfigCamera  onSave={handleSaveConfig}></ChangeConfigCamera>
+                    <TestProp cameraConfig={cameraConfig} />
                 </Box>
             </Grid>
             <Grid item xs={5} sx={{height: '100%'}}>

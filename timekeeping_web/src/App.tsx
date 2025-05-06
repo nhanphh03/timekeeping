@@ -5,8 +5,18 @@ import DayItemList from "./components/item/DayItemList.jsx";
 import WebcamFaceDetectionV2 from "./components/WebcamFaceDetectionV2.jsx";
 import Footer from "./components/layout/Footer.js";
 import FirstItemTimekeeping from "./components/item/FirstItemTimekeeping";
+import { CameraConfig } from './interfaces/CameraConfig.js';
+import React from "react";
 
 function App() {
+
+    const [cameraConfig, setCameraConfig] = React.useState<CameraConfig | null>(null);
+
+    const handleSaveConfig = (config: CameraConfig) => {
+        console.log('Saved config:', config);
+        setCameraConfig(config); // Cập nhật state với config mới
+    };
+
     return (
         <Grid container sx={{ height: '100vh' }}>
             <Grid item size={5} sx={{ height: '100%' }}>

@@ -11,9 +11,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import Slider from '@mui/material/Slider';
+import {ChangeConfigCameraProps} from "../interfaces/ChangeConfigCameraProps.ts";
 
-export default function ChangeConfigCamera() {
+export default function ChangeConfigCamera({ onSave }: ChangeConfigCameraProps) {
     const [open, setOpen] = React.useState(false);
+    const [modelFaceDetector, setModelFaceDetector] = React.useState('');
+    const [minConfidence, setMinConfidence] = React.useState(0.5);
     const [inputSize, setInputSize] = React.useState(512);
     const [scoreThreshold, setScoreThreshold] = React.useState(0.5);
 
@@ -25,13 +28,20 @@ export default function ChangeConfigCamera() {
         setOpen(false);
     };
 
-    const [modelFaceDetector, setModelFaceDetector] = React.useState('');
-
     const handleChange = (event: SelectChangeEvent) => {
         setModelFaceDetector(event.target.value as string);
     };
 
-
+    const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const config = {
+            modelFaceDetector,
+            ...(modelFaceDetector === 'ssd_mobilenetv1' && { minConfidence }),
+            ...(modelFaceDetector === 'tiny_face_detector' && { inputSize, scoreThreshold }),
+        };
+        onSave(config);
+        handleClose();
+    };
     return (
         <React.Fragment>
             <SettingsIcon fontSize="medium"
@@ -43,10 +53,7 @@ export default function ChangeConfigCamera() {
                 slotProps={{
                     paper: {
                         component: 'form',
-                        onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-                            event.preventDefault();
-                            handleClose();
-                        },
+                        onSubmit: handleSave,
                         sx: {
                             width: 350,
                             maxWidth: '90vw',
@@ -78,6 +85,11 @@ export default function ChangeConfigCamera() {
                             <Box sx={{width: 300}}>
                                 <label>Min Confidence:</label>
                                 <Slider
+                                    value={minConfidence}
+                                    onChange={(event, value) => {
+                                        console.debug(event);
+                                        setMinConfidence(value as number);
+                                    }}
                                     defaultValue={0.5}
                                     valueLabelDisplay="auto"
                                     step={0.1}
