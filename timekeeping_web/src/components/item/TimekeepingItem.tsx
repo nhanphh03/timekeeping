@@ -22,7 +22,7 @@ function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
             boxShadow: 3,
             px: 2,
             ...props.sx,}}>
-            <Grid item xs={2}>
+            <Grid size={2}>
                 <Box sx={{display: 'flex'}}>
                     <Box sx={{m: 'auto',}}>
                         <Typography
@@ -51,7 +51,7 @@ function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
                     </Box>
                 </Box>
             </Grid>
-            <Grid item xs={5}>
+            <Grid size={5}>
                 <Box>
                     <Typography sx={{}} variant="subtitle1" fontSize={24} fontWeight={600}>
                         {props.name}
@@ -61,12 +61,12 @@ function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
                     </Typography>
                 </Box>
             </Grid>
-            <Grid item xs={3}>
+            <Grid size={3}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
                     {props.timeIn}
                 </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid size={2}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
                     {props.timeOut}
                 </Typography>
