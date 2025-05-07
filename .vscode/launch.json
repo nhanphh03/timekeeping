@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TimekeepingProducerApplication<timekeeping_producer>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "nhanph.timekeeping.producer.TimekeepingProducerApplication",
+            "projectName": "timekeeping_producer",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
