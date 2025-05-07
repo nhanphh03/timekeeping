@@ -11,10 +11,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import Slider from '@mui/material/Slider';
-import {Typography} from "@mui/material";
-import {CameraConfigProps} from "../../interfaces/CameraConfigProps";
+import {CameraConfigProps} from "../../interfaces/CameraConfigProps.ts";
 
-export default function ChangeConfigCamera({ onSave }: Readonly<CameraConfigProps>) {
+export default function ChangeConfigCamera({onSave}: CameraConfigProps) {
     const [open, setOpen] = React.useState(false);
     const [modelFaceDetector, setModelFaceDetector] = React.useState('');
     const [minConfidence, setMinConfidence] = React.useState(0.5);
@@ -30,17 +29,19 @@ export default function ChangeConfigCamera({ onSave }: Readonly<CameraConfigProp
     };
 
     const handleChange = (event: SelectChangeEvent) => {
-        setModelFaceDetector(event.target.value);
+        setModelFaceDetector(event.target.value as string);
     };
 
     const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const config = {
             modelFaceDetector,
-            ...(modelFaceDetector === 'ssd_mobilenetv1' && { minConfidence }),
-            ...(modelFaceDetector === 'tiny_face_detector' && { inputSize, scoreThreshold }),
+            ...(modelFaceDetector === 'ssd_mobilenetv1' && {minConfidence}),
+            ...(modelFaceDetector === 'tiny_face_detector' && {inputSize, scoreThreshold}),
         };
-        onSave(config);
+        if (onSave) {
+            onSave(config);
+        }
         handleClose();
     };
     return (
@@ -84,7 +85,7 @@ export default function ChangeConfigCamera({ onSave }: Readonly<CameraConfigProp
                     <Box sx={{display: 'flex', gap: 2, mt: 4}}>
                         {modelFaceDetector === 'ssd_mobilenetv1' && (
                             <Box sx={{width: 300}}>
-                                <Typography>Min Confidence</Typography>
+                                <label>Min Confidence:</label>
                                 <Slider
                                     value={minConfidence}
                                     onChange={(event, value) => {
@@ -118,7 +119,7 @@ export default function ChangeConfigCamera({ onSave }: Readonly<CameraConfigProp
                                 </FormControl>
 
                                 <Box sx={{width: 300, mt: 3}}>
-                                    <Typography>Score Threshold</Typography>
+                                    <label>Score Threshold:</label>
                                     <Slider
                                         value={scoreThreshold}
                                         onChange={(event, value) => {
