@@ -1,7 +1,7 @@
 import {Stack} from "@mui/material";
 import DayItem from "./DayItem.js";
 
-function DayItemList() {
+export default function DayItemList() {
     return (
         <Stack direction="row" spacing={1.5} sx={{pt: 1, pl: 1}}>
             <DayItem child = "Monday" status = 'inActive' sx={{width: '10%', height: 60}}></DayItem>
@@ -14,4 +14,3 @@ function DayItemList() {
         </Stack>
     )
 }
-export default DayItemList;

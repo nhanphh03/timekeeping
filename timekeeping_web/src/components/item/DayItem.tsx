@@ -1,13 +1,7 @@
-import { Box, Typography, SxProps, Theme } from '@mui/material';
-import * as React from "react";
+import { Box, Typography } from '@mui/material';
+import {DayItemProps} from "../../interfaces/DayItemProps.ts";
 
-interface DayItemProps {
-    child: string;
-    sx?: SxProps<Theme>;
-    status?: 'active' | 'inactive' | string;
-}
-
-function DayItem(props: Readonly<DayItemProps>) {
+export default function DayItem(props: Readonly<DayItemProps>) {
     return (
         <Box
             sx={{
@@ -29,5 +23,3 @@ function DayItem(props: Readonly<DayItemProps>) {
         </Box>
     );
 };
-
-export default DayItem;

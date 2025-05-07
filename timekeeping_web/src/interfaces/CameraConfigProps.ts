@@ -4,5 +4,7 @@ import {SxProps, Theme} from "@mui/material";
 export interface CameraConfigProps {
     sx?: SxProps<Theme>;
     onSave?: (config: CameraConfig) => void;
-    cameraConfig: CameraConfig | null;
+    cameraConfig?: CameraConfig | null;
+    videoWidth?: number;
+    videoHeight?: number;
 }

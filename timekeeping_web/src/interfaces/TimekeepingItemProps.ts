@@ -1,7 +1,7 @@
 import {ReactNode} from "react";
 import {SxProps, Theme} from "@mui/material";
 
-interface TimekeepingItemProps {
+export interface TimekeepingItemProps {
     imageSrc: string;
     name: string;
     timeIn: string;

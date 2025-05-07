@@ -1,12 +1,10 @@
 import {Box, Grid, Typography} from '@mui/material';
-import * as React from "react";
-import {ItemTimekeepingProps} from "../../interfaces/ItemTimekeepingProps";
+import {TimekeepingItemProps} from "../../interfaces/TimekeepingItemProps.ts";
 
-
-export default function FirstItemTimekeeping({ index, imageSrc, name, timeIn,timeOut, title,
-    sx }: Readonly<ItemTimekeepingProps>) {
+export default function FirstItemTimekeeping(props: Readonly<TimekeepingItemProps>) {
     return (
-        <Grid sx={{backgroundColor: '#e4fcff',
+        <Grid sx={{
+            backgroundColor: '#e4fcff',
             display: 'flex',
             alignItems: 'center',
             gap: 2,
@@ -16,7 +14,8 @@ export default function FirstItemTimekeeping({ index, imageSrc, name, timeIn,tim
             width: '98%',
             ml: 1,
             boxShadow: 3,
-            ...sx,}}>
+            ...props.sx,
+        }}>
             <Grid size={2} sx={{display: 'flex'}}>
                 <Box sx={{m: 'auto',}}>
                     <Typography
@@ -38,12 +37,14 @@ export default function FirstItemTimekeeping({ index, imageSrc, name, timeIn,tim
                 <Box sx={{display: 'flex', ml: 2}}>
                     <Box>
                         <img
-                            src={imageSrc}
-                            alt={name}
-                            style={{ width: 74,
+                            src={props.imageSrc}
+                            alt={props.name}
+                            style={{
+                                width: 74,
                                 height: 74,
-                                borderRadius: '10%',
-                        }}
+                                border: '1px solid #8a8686',
+                                borderRadius: '10%'
+                            }}
                         />
                     </Box>
                 </Box>
@@ -51,26 +52,24 @@ export default function FirstItemTimekeeping({ index, imageSrc, name, timeIn,tim
             <Grid size={5}>
                 <Box sx={{ml: 6}}>
                     <Typography sx={{}} variant="subtitle1" fontSize={24} fontWeight={600}>
-                        {name}
+                        {props.name}
                     </Typography>
                     <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
-                        {title}
+                        {props.title}
                     </Typography>
                 </Box>
             </Grid>
             <Grid size={3}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
-                    {timeIn}
+                    {props.timeIn}
                 </Typography>
             </Grid>
             <Grid size={2}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
-                    {timeOut}
+                    {props.timeOut}
                 </Typography>
             </Grid>
 
         </Grid>
     );
 };
-
-export default FirstItemTimekeeping;
