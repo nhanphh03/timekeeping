@@ -1,30 +1,32 @@
-// package nhanph.timekeeping.producer.controller;
+ package nhanph.timekeeping.producer.controller;
 
-// import nhanph.timekeeping.producer.service.KafkaProducerService;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
-// import org.springframework.web.bind.annotation.RestController;
+ import nhanph.timekeeping.producer.dto.RequestMessage;
+ import nhanph.timekeeping.producer.service.KafkaProducerService;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.web.bind.annotation.PostMapping;
+ import org.springframework.web.bind.annotation.RequestBody;
+ import org.springframework.web.bind.annotation.RequestMapping;
+ import org.springframework.web.bind.annotation.RestController;
 
-// /**
-//  * {@code @Package:} nhanph.timekeeping.producer.controller
-//  * {@code @author:} nhanph
-//  * {@code @date:} 05/07/2025
-//  * {@code @Copyright:} @nhanph
-//  */
+ /**
+  * {@code @Package:} nhanph.timekeeping.producer.controller
+  * {@code @author:} nhanph
+  * {@code @date:} 05/07/2025
+  * {@code @Copyright:} @nhanph
+  */
 
-// @RestController
-// public class KafkaController {
+ @RestController
+ @RequestMapping("/procedure")
+ public class KafkaController {
 
-//     private final KafkaProducerService producerService;
+     private final KafkaProducerService producerService;
 
-//     public KafkaController(KafkaProducerService producerService) {
-//         this.producerService = producerService;
-//     }
+     public KafkaController(KafkaProducerService producerService) {
+         this.producerService = producerService;
+     }
 
-//     @PostMapping("/sendMessage")
-//     public String sendMessage(@RequestBody String message) {
-//         producerService.sendMessage(message, "timekeeping-topic");
-//         return "Message sent to Kafka: " + message;
-//     }
-// }
+     @PostMapping("/send-detector")
+     public void sendMessage(@RequestBody RequestMessage request) {
+         producerService.sendMessage(request);
+     }
+ }

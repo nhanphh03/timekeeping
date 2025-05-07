@@ -1,0 +1,10 @@
+server:
+  port: 2121
+
+spring:
+  kafka:
+    bootstrap-servers: 192.168.1.19:9092
+    producer:
+      topic-name: 'timekeeping-detector'
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

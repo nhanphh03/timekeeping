@@ -1,12 +1,13 @@
 import {Box, Grid} from '@mui/material';
 import Stack from '@mui/system/Stack';
 import {CameraConfig} from './interfaces/CameraConfig.js';
+import WebcamFaceDetection from "./components/camera/WebcamFaceDetection";
+import DayItemList from "./components/items/DayItemList";
+import FirstItemTimekeeping from "./components/items/FirstItemTimekeeping";
+import TimekeepingList from "./components/items/TimekeepingList";
+import Footer from "./components/layout/Footer";
+// @ts-ignore
 import React from "react";
-import Footer from "./components/layout/Footer.tsx";
-import DayItemList from "./components/items/DayItemList.tsx";
-import FirstItemTimekeeping from "./components/items/FirstItemTimekeeping.tsx";
-import TimekeepingList from "./components/items/TimekeepingList.tsx";
-import WebcamFaceDetection from "./components/camera/WebcamFaceDetection.tsx";
 
 export default function App() {
 
@@ -14,7 +15,7 @@ export default function App() {
 
     return (
         <Grid container sx={{height: '100vh'}}>
-            <Grid size={5} sx={{height: '100%'}}>
+            <Grid item xs={5} sx={{height: '100%'}}>
                 <Box sx={{
                     height: '54%',
                     width: '100%',
@@ -24,7 +25,7 @@ export default function App() {
                     <WebcamFaceDetection cameraConfig={cameraConfig} videoWidth={750}
                                          videoHeight={500} sx={{pt: 2, pl: 2}}/>
                 </Box>
-                <Box sx={{height: '1%', width: '100%'}}></    Box>
+                <Box sx={{height: '1%', width: '100%'}}/>
                 <Box sx={{
                     borderRadius: 2,
                     boxShadow: 3,
@@ -34,7 +35,7 @@ export default function App() {
                 </Box>
             </Grid>
 
-            <Grid size={7} sx={{height: '100%'}}>
+            <Grid item xs={7} sx={{height: '100%'}}>
                 <Box sx={{height: '1%', width: '100%'}}></Box>
                 <Box sx={{height: '10%', width: '100%'}}>
                     <DayItemList/>

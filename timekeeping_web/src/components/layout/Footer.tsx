@@ -8,7 +8,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import ChangeConfigCamera from '../dialog/ChangeConfigCamera';
-import {CameraConfigProps} from "../../interfaces/CameraConfigProps.ts";
+import {CameraConfigProps} from "../../interfaces/CameraConfigProps";
 
 export default function Footer(props: Readonly<CameraConfigProps>) {
     return (
@@ -23,12 +23,12 @@ export default function Footer(props: Readonly<CameraConfigProps>) {
             boxShadow: 3
         }}>
 
-            <Grid size={1}>
+            <Grid item xs={1}>
                 <Box sx={{ml: 1}}>
                     <ChangeConfigCamera onSave={props.onSave}/>
                 </Box>
             </Grid>
-            <Grid size={5}>
+            <Grid item xs={5}>
                 <Box
                     component="form"
                     sx={{'& > :not(style)': {width: '100%'}}}
@@ -52,7 +52,7 @@ export default function Footer(props: Readonly<CameraConfigProps>) {
                     />
                 </Box>
             </Grid>
-            <Grid size={3}>
+            <Grid item xs={3}>
                 <Box sx={{display: 'flex', float: 'right'}}>
                     <Typography
                         sx={{
@@ -74,7 +74,7 @@ export default function Footer(props: Readonly<CameraConfigProps>) {
                     </Select>
                 </Box>
             </Grid>
-            <Grid size={3}>
+            <Grid item xs={3}>
                 <Box sx={{ml: 2, float: 'right'}}>
                     <Stack direction="row" spacing={2}>
                         <IconButton>

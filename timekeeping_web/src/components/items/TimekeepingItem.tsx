@@ -1,20 +1,19 @@
 import {Box, Grid, Typography} from '@mui/material';
-import {TimekeepingItemProps} from "../../interfaces/TimekeepingItemProps.ts";
+import {TimekeepingItemProps} from "../../interfaces/TimekeepingItemProps";
 
 export default function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
     return (
-        <Grid sx={{
+        <Grid container sx={{
             backgroundColor: props.index % 2 === 0 ? '#ffffff' : '#ececec',
             display: 'flex',
             alignItems: 'center',
-            gap: 2,
             height: 110,
             borderRadius: 2,
             boxShadow: 3,
             px: 2,
             ...props.sx,
         }}>
-            <Grid size={2}>
+            <Grid item xs={2}>
                 <Box sx={{display: 'flex'}}>
                     <Box sx={{m: 'auto',}}>
                         <Typography
@@ -47,8 +46,8 @@ export default function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
                     </Box>
                 </Box>
             </Grid>
-            <Grid size={5}>
-                <Box>
+            <Grid item xs={5}>
+                <Box sx={{ml:4}}>
                     <Typography sx={{}} variant="subtitle1" fontSize={24} fontWeight={600}>
                         {props.name}
                     </Typography>
@@ -57,12 +56,12 @@ export default function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
                     </Typography>
                 </Box>
             </Grid>
-            <Grid size={3}>
+            <Grid item xs={3}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
                     {props.timeIn}
                 </Typography>
             </Grid>
-            <Grid size={2}>
+            <Grid item xs={2}>
                 <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
                     {props.timeOut}
                 </Typography>
