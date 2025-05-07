@@ -2,11 +2,11 @@ import {Box, Grid} from '@mui/material';
 import Stack from '@mui/system/Stack';
 import {CameraConfig} from './interfaces/CameraConfig.js';
 import React from "react";
-import Footer from "./component/layout/Footer.tsx";
-import DayItemList from "./component/item/DayItemList.tsx";
-import FirstItemTimekeeping from "./component/item/FirstItemTimekeeping.tsx";
-import TimekeepingList from "./component/item/TimekeepingList.tsx";
-import WebcamFaceDetection from "./component/camera/WebcamFaceDetection.tsx";
+import Footer from "./components/layout/Footer.tsx";
+import DayItemList from "./components/items/DayItemList.tsx";
+import FirstItemTimekeeping from "./components/items/FirstItemTimekeeping.tsx";
+import TimekeepingList from "./components/items/TimekeepingList.tsx";
+import WebcamFaceDetection from "./components/camera/WebcamFaceDetection.tsx";
 
 export default function App() {
 
