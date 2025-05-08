@@ -1,6 +1,8 @@
 package nhanph.timekeeping.processor.util;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * @Package: nhanph.timekeeping.util
@@ -9,34 +11,43 @@ import org.springframework.beans.factory.annotation.Value;
  * @Copyright: @nhanph
  */
 
+@Component
 public class Constants {
 
     @Value("${services.face_service}")
-    public static String faceService;
+    private String faceService;
 
     @Value("${services.minio_service}")
-    private static String minioService;
+    private String minioService;
 
     public static class SERVICE_FACE {
-        public static String URL_FACE = faceService;
+        public static String URL_FACE;
         public static String SEARCH = "/search";
         public static String REGISTER_FACE = "/register-face";
         public static String REMOVE_FACE = "/api/v1/delete";
     }
 
-    public static final String DATA_SOURCE = "timekeeping_face";
+//    @PostConstruct là một annotation trong Spring, dùng để chỉ định phương thức sẽ được gọi ngay sau khi
+//    Spring hoàn tất việc inject dependencies vào bean. Trong trường hợp này,
+//    bạn có thể sử dụng @PostConstruct để khởi tạo giá trị cho các thuộc tính static
+//    sau khi Spring đã inject faceService.
 
+    @PostConstruct
+    public void init() {
+        SERVICE_FACE.URL_FACE = faceService;
+        SERVICE_MINIO.URL_MINIO = minioService;
+    }
+
+    public static final String DATA_SOURCE = "timekeeping_face";
     public static final String STATUS_SUCCESS = "SUCCESS";
     public static final String RECOGNITION_STATUS_A = "A";
     public static final String RECOGNITION_STATUS_B = "B";
 
     public static class SERVICE_MINIO {
-        public static String URL_MINIO = minioService;
+        public static String URL_MINIO;
         public static String GET = "/";
         public static String UPLOAD = "/upload";
         public static String UPLOAD_BASE64 = "/upload/base64";
     }
-
-
-
 }
+

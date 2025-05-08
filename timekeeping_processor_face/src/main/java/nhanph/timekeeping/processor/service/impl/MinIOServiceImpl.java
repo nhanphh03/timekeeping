@@ -2,6 +2,7 @@ package nhanph.timekeeping.processor.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import nhanph.timekeeping.processor.dto.minIO.UploadFileDTO;
+import nhanph.timekeeping.processor.dto.minIO.UploadResponseDTO;
 import nhanph.timekeeping.processor.service.MinIOService;
 import nhanph.timekeeping.processor.util.ApiClient;
 import nhanph.timekeeping.processor.util.Constants;
@@ -13,11 +14,11 @@ public class MinIOServiceImpl implements MinIOService {
     private final ApiClient apiClient;
 
     @Override
-    public String uploadImageDetection(UploadFileDTO imageBase64) {
-        return apiClient.sendPostRequest(
-                Constants.SERVICE_MINIO.URL_MINIO + Constants.SERVICE_MINIO.UPLOAD,
+    public void uploadImageDetection(UploadFileDTO imageBase64) {
+        apiClient.sendPostRequest(
+                Constants.SERVICE_MINIO.URL_MINIO + Constants.SERVICE_MINIO.UPLOAD_BASE64,
                 imageBase64,
-                String.class,
+                UploadResponseDTO.class,
                 null
         );
     }

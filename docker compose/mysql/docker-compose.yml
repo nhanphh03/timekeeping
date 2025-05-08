@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Nhan21..
+      MYSQL_DATABASE: timekeeping_face
+      MYSQL_USER: nhanph
+      MYSQL_PASSWORD: Nhan21..
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql_v2
+
+volumes:
+  mysql_data:
+

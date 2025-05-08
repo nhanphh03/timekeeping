@@ -1,8 +1,7 @@
  package nhanph.timekeeping.producer.controller;
 
- import nhanph.timekeeping.producer.dto.RequestMessage;
+ import nhanph.timekeeping.common.dto.KafkaMessage;
  import nhanph.timekeeping.producer.service.KafkaProducerService;
- import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.web.bind.annotation.PostMapping;
  import org.springframework.web.bind.annotation.RequestBody;
  import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,7 @@
      }
 
      @PostMapping("/send-detector")
-     public void sendMessage(@RequestBody RequestMessage request) {
+     public void sendMessage(@RequestBody KafkaMessage request) {
          producerService.sendMessage(request);
      }
  }

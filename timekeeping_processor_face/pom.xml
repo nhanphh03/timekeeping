@@ -53,8 +53,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
+            <groupId>nhanph.timekeeping</groupId>
+            <artifactId>timekeeping-common-dto</artifactId>
+            <version>0.0.1</version>
         </dependency>
 
     </dependencies>

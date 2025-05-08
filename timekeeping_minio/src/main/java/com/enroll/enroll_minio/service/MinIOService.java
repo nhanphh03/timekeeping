@@ -1,6 +1,7 @@
 package com.enroll.enroll_minio.service;
 
 import com.enroll.enroll_minio.dto.UploadFileDTO;
+import com.enroll.enroll_minio.dto.UploadResponse;
 import io.micrometer.common.util.StringUtils;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
@@ -51,7 +52,7 @@ public class MinIOService {
         return objectKey;
     }
 
-    public String uploadFileBase64Img(UploadFileDTO uploadFileDTO) {
+    public UploadResponse uploadFileBase64Img(UploadFileDTO uploadFileDTO) {
         String base64Img = uploadFileDTO.getBase64Img();
         String fileUrl = uploadFileDTO.getFileUrl();
         String fileName = uploadFileDTO.getFileName();
@@ -73,7 +74,7 @@ public class MinIOService {
                             .contentType("image/jpeg")
                             .build()
             );
-            return objectKey;
+            return new UploadResponse(objectKey);
         } catch (Exception e) {
             throw new IllegalArgumentException("Error occurred while uploading base64 image", e);
         }

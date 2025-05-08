@@ -1,5 +1,6 @@
 package com.enroll.enroll_minio.controller;
 import com.enroll.enroll_minio.dto.UploadFileDTO;
+import com.enroll.enroll_minio.dto.UploadResponse;
 import com.enroll.enroll_minio.service.MinIOService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.io.InputStreamResource;
@@ -37,11 +38,11 @@ public class FileController {
     }
 
     @PostMapping("/upload/base64")
-    public ResponseEntity<String> uploadImageBase64(@RequestBody UploadFileDTO uploadFileDTO) {
+    public ResponseEntity<UploadResponse> uploadImageBase64(@RequestBody UploadFileDTO uploadFileDTO) {
         try {
             return ResponseEntity.ok(minioService.uploadFileBase64Img(uploadFileDTO));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to upload file: " + e.getMessage());
+            return ResponseEntity.status(500).body(new UploadResponse("Failed: " + e.getMessage()));
         }
     }
 
