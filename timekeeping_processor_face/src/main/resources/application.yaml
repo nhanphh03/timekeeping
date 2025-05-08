@@ -3,8 +3,8 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.1.19:3306/timekeeping_face
-    username: timekeeping_face
+    url: jdbc:mysql://192.168.1.19:3302/timekeeping_face
+    username: nhanph
     password: Nhan21..
     hikari:
       connection-timeout: 30000
