@@ -18,14 +18,20 @@ public class Constants {
     private static String minioService;
 
     public static class SERVICE_FACE {
-        public static String SERVICE_FACE = faceService;
+        public static String URL_FACE = faceService;
         public static String SEARCH = "/search";
         public static String REGISTER_FACE = "/register-face";
         public static String REMOVE_FACE = "/api/v1/delete";
     }
 
+    public static final String DATA_SOURCE = "timekeeping_face";
+
+    public static final String STATUS_SUCCESS = "SUCCESS";
+    public static final String RECOGNITION_STATUS_A = "A";
+    public static final String RECOGNITION_STATUS_B = "B";
+
     public static class SERVICE_MINIO {
-        public static String SERVICE_MINIO = minioService;
+        public static String URL_MINIO = minioService;
         public static String GET = "/";
         public static String UPLOAD = "/upload";
         public static String UPLOAD_BASE64 = "/upload/base64";

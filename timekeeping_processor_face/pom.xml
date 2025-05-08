@@ -17,12 +17,16 @@
         <java.version>17</java.version>
         <minio.version>8.5.10</minio.version>
         <mysql.connector.version>8.0.28</mysql.connector.version>
-        <http.component.version>4.5.13</http.component.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>
@@ -41,12 +45,6 @@
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
             <version>${minio.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${http.component.version}</version>
         </dependency>
 
         <dependency>

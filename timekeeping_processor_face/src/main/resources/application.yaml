@@ -21,7 +21,7 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 services:
-  minio_service: 192.168.1.19:9000/api/v1/file
-  face_service: 192.168.1.19:8002
+  minio_service: http://192.168.1.19:9000/api/v1/file
+  face_service: http://192.168.1.19:8002
 
 
