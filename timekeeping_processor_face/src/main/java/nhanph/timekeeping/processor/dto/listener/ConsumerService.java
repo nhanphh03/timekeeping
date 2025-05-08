@@ -97,8 +97,8 @@ public class ConsumerService {
                 .createdTime(new Date())
                 .capturedTime(message.getTimeRequest())
                 .imagePath(message.getFilePath())
-                .firstTimeCheckIn("") // TODO: get from redis
-                .firstTimeCheckInNoon("") // TODO: get from redis
+                .firstTimeCheckIn(null) // TODO: get from redis
+                .firstTimeCheckInNoon(null) // TODO: get from redis
                 .responseRaw(searchFaceObject.toString())
                 .recognitionStatus(recognitionStatus)
                 .build();

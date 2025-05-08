@@ -30,9 +30,9 @@ public class Detection {
     @Column(name = "captured_time")
     private String capturedTime;
     @Column(name = "first_time_check_in")
-    private String firstTimeCheckIn;
+    private Date firstTimeCheckIn;
     @Column(name = "first_time_check_in_noon")
-    private String firstTimeCheckInNoon;
+    private Date firstTimeCheckInNoon;
     @Column(name = "search_id")
     private String searchId;
     @Column(name = "score")
