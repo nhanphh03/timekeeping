@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import Slider from '@mui/material/Slider';
-import {CameraConfigProps} from "../../interfaces/CameraConfigProps.ts";
+import {CameraConfigProps} from "../../interfaces/CameraConfigProps";
 
 export default function ChangeConfigCamera({onSave}: CameraConfigProps) {
     const [open, setOpen] = React.useState(false);
@@ -96,8 +96,8 @@ export default function ChangeConfigCamera({onSave}: CameraConfigProps) {
                                     valueLabelDisplay="auto"
                                     step={0.1}
                                     marks
-                                    min={0.0}
-                                    max={1.0}
+                                    min={0.1}
+                                    max={0.9}
                                 />
                             </Box>
                         )}
@@ -130,7 +130,7 @@ export default function ChangeConfigCamera({onSave}: CameraConfigProps) {
                                         step={0.1}
                                         marks
                                         min={0.1}
-                                        max={1.0}
+                                        max={0.9}
                                     />
                                 </Box>
 

@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import {DayItemProps} from "../../interfaces/DayItemProps.ts";
+import {DayItemProps} from "../../../interfaces/DayItemProps";
 
 export default function DayItem(props: Readonly<DayItemProps>) {
     return (
