@@ -24,6 +24,12 @@ spring:
         spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
         spring.json.trusted.packages: "nhanph.timekeeping.common.dto"
+  data:
+    redis:
+      host: 192.168.1.19
+      port: 6379
+      password: Nhan21..
+      timeout: 60000
 services:
   minio_service: http://192.168.1.19:8181/api/v1/file
   face_service: http://192.168.1.19:8005

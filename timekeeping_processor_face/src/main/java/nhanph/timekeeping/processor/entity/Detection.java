@@ -10,7 +10,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "detection")
 public class Detection {
 
     @Id
@@ -31,9 +30,9 @@ public class Detection {
     @Column(name = "captured_time")
     private String capturedTime;
     @Column(name = "first_time_check_in")
-    private Date firstTimeCheckIn;
-    @Column(name = "first_time_check_in_noon")
-    private Date firstTimeCheckInNoon;
+    private String firstTimeCheckIn;
+    @Column(name = "last_time_check_in")
+    private String lastTimeCheckInNoon;
     @Column(name = "search_id")
     private String searchId;
     @Column(name = "score")
