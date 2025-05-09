@@ -2,7 +2,7 @@ package nhanph.timekeeping.processor.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nhanph.timekeeping.processor.dto.kafka.KafkaMessage;
+import nhanph.timekeeping.common.dto.KafkaMessage;
 import nhanph.timekeeping.processor.dto.minIO.UploadFileDTO;
 import nhanph.timekeeping.processor.service.AsyncUploadService;
 import nhanph.timekeeping.processor.service.MinIOService;
