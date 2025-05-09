@@ -32,7 +32,7 @@ public class Detection {
     @Column(name = "first_time_check_in")
     private String firstTimeCheckIn;
     @Column(name = "last_time_check_in")
-    private String lastTimeCheckInNoon;
+    private String lastTimeCheckIn;
     @Column(name = "search_id")
     private String searchId;
     @Column(name = "score")

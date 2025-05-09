@@ -17,7 +17,7 @@ public class RedisCacheCleaner {
         log.info("Clearing Redis cache at end of day...");
         var keysFirst = redisTemplate.keys("first_*");
 
-        if (keysFirst != null && !keysFirst.isEmpty()) {
+        if (!keysFirst.isEmpty()) {
             redisTemplate.delete(keysFirst);
             log.info("Deleted {} keys", keysFirst.size());
         } else {

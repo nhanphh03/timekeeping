@@ -14,13 +14,3 @@ CREATE TABLE detection
     score DOUBLE
 );
 
--- private final RedisService redisService;
--- private String getFirstTimeCheckIn(String peopleId) {
---         String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
---         Object firstTimeCheckIn = redisService.get("first_" + peopleId);
---         if (firstTimeCheckIn == null) {
---             firstTimeCheckIn = now;
---             redisService.save("first_" + peopleId, firstTimeCheckIn);
---         }
---         return firstTimeCheckIn.toString();
---     }

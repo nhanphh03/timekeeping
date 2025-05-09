@@ -1,4 +1,4 @@
-package nhanph.timekeeping.processor.dto.listener;
+package nhanph.timekeeping.processor.listener;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,11 +10,13 @@ import nhanph.timekeeping.processor.entity.Detection;
 import nhanph.timekeeping.processor.repository.DetectionRepository;
 import nhanph.timekeeping.processor.service.AsyncUploadService;
 import nhanph.timekeeping.processor.service.FaceService;
+import nhanph.timekeeping.processor.service.RedisService;
 import nhanph.timekeeping.processor.util.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -26,6 +28,7 @@ public class ConsumerService {
     private final FaceService faceService;
     private final DetectionRepository detectionRepository;
     private final AsyncUploadService asyncUploadService;
+    private final RedisService redisService;
 
     @KafkaListener(topics = "timekeeping-detector", groupId = "timekeeping-detector")
     public void consume(KafkaMessage message) {
@@ -86,6 +89,8 @@ public class ConsumerService {
 
     private Detection buildDetection(SearchFaceObject searchFaceObject, KafkaMessage message
             , String recognitionStatus, String filePath) {
+
+        String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return Detection.builder()
                 .cameraCode(message.getCameraCode())
                 .searchId(searchFaceObject.getId())
@@ -94,10 +99,19 @@ public class ConsumerService {
                 .createdTime(new Date())
                 .capturedTime(message.getTimeRequest())
                 .imagePath(filePath)
-                .firstTimeCheckIn(null)
-                .firstTimeCheckInNoon(null)
+                .firstTimeCheckIn(getFirstTimeCheckIn(searchFaceObject.getPeopleId(), now))
+                .lastTimeCheckIn(now)
                 .responseRaw(searchFaceObject.toString())
                 .recognitionStatus(recognitionStatus)
                 .build();
+    }
+
+    private String getFirstTimeCheckIn(String peopleId, String now) {
+        Object firstTimeCheckIn = redisService.get("first_" + peopleId);
+        if (firstTimeCheckIn == null) {
+            firstTimeCheckIn = now;
+            redisService.save("first_" + peopleId, firstTimeCheckIn);
+        }
+        return firstTimeCheckIn.toString();
     }
 }
