@@ -26,6 +26,8 @@ export interface DayItemProps {
 
 export interface TimekeepingItemProps {
   imageSrc: string;
+  description: string;
+  status: string
   name: string;
   timeIn: string;
   timeOut: string;

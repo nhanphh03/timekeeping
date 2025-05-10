@@ -1,6 +1,9 @@
 import {Box, Grid, Typography} from '@mui/material';
 import {TimekeepingItemProps} from "../../types";
-
+import CircleIcon from '@mui/icons-material/Circle';
+import DoneIcon from '@mui/icons-material/Done';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import CloseIcon from '@mui/icons-material/Close';
 export default function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
     return (
         <Grid container sx={{
@@ -46,7 +49,7 @@ export default function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
                     </Box>
                 </Box>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={4}>
                 <Box sx={{ml:4}}>
                     <Typography sx={{}} variant="subtitle1" fontSize={24} fontWeight={600}>
                         {props.name}
@@ -56,14 +59,30 @@ export default function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
                     </Typography>
                 </Box>
             </Grid>
-            <Grid item xs={3}>
-                <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
+            <Grid sx={{display: 'flex'}} item xs={2}>
+                <CircleIcon sx={{color: '#6d776b', mr: 2, fontSize: 30}}></CircleIcon>
+                <Typography sx={{}} variant="body1" fontSize={20} fontWeight={500}>
                     {props.timeIn}
                 </Typography>
             </Grid>
-            <Grid item xs={2}>
-                <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
+            <Grid item xs={2} sx={{display: 'flex'}}>
+                <CircleIcon sx={{color: '#2d68c1', mr: 2, fontSize: 30}}></CircleIcon>
+                <Typography sx={{}} variant="body1" fontSize={20} fontWeight={500}>
                     {props.timeOut}
+                </Typography>
+            </Grid>
+            <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                {props.status === '1' && (
+                    <SentimentSatisfiedAltIcon sx={{ color: 'blue', mr: 2, fontSize: 30 }} />
+                )}
+                {props.status === '2' && (
+                    <DoneIcon sx={{ color: '#62bc50', mr: 2, fontSize: 30 }} />
+                )}
+                    {props.status === '0' && (
+                    <CloseIcon sx={{ color: '#cc3737', mr: 2, fontSize: 30 }} />
+                )}
+                <Typography variant="body1" fontSize={20} fontWeight={500}>
+                    {props.description}
                 </Typography>
             </Grid>
 

@@ -1,5 +1,9 @@
 import {Box, Grid, Typography} from '@mui/material';
 import {TimekeepingItemProps} from "../../types";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+import DoneIcon from "@mui/icons-material/Done";
+import CloseIcon from "@mui/icons-material/Close";
+import CircleIcon from "@mui/icons-material/Circle";
 
 export default function FirstItemTimekeeping(props: Readonly<TimekeepingItemProps>) {
     return (
@@ -49,7 +53,7 @@ export default function FirstItemTimekeeping(props: Readonly<TimekeepingItemProp
                     </Box>
                 </Box>
             </Grid>
-            <Grid xs={5}>
+            <Grid xs={4}>
                 <Box sx={{ml: 6}}>
                     <Typography sx={{}} variant="subtitle1" fontSize={24} fontWeight={600}>
                         {props.name}
@@ -59,16 +63,66 @@ export default function FirstItemTimekeeping(props: Readonly<TimekeepingItemProp
                     </Typography>
                 </Box>
             </Grid>
-            <Grid xs={3}>
-                <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
+            <Grid sx={{display: 'flex'}} xs={2}>
+                <Typography
+                    sx={{
+                        height: 40,
+                        width: 40,
+                        backgroundColor: 'green',
+                        mr: 2,
+                        borderRadius: '50%',
+                        color: 'white',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 15,
+                        fontWeight: 'bold'
+                    }}
+                >
+                    IN
+                </Typography>
+                <Typography sx={{mt:0.5}} variant="body1" fontSize={20} fontWeight={500}>
                     {props.timeIn}
                 </Typography>
             </Grid>
-            <Grid xs={2}>
-                <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
+            <Grid sx={{display: 'flex'}} xs={2}>
+                <Typography
+                    sx={{
+                        height: 40,
+                        width: 40,
+                        backgroundColor: 'red',
+                        mr: 2,
+                        borderRadius: '50%',
+                        color: 'white',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 15,
+                        fontWeight: 'bold'
+                    }}
+                >
+                    OUT
+                </Typography>
+
+                <Typography sx={{mt:0.5}} variant="body1" fontSize={20} fontWeight={500}>
                     {props.timeOut}
                 </Typography>
             </Grid>
+            <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                {props.status === '1' && (
+                    <SentimentSatisfiedAltIcon sx={{ color: 'blue', mr: 2, fontSize: 30 }} />
+                )}
+                {props.status === '2' && (
+                    <DoneIcon sx={{ color: '#62bc50', mr: 2, fontSize: 30 }} />
+                )}
+                {props.status === '0' && (
+                    <CloseIcon sx={{ color: '#cc3737', mr: 2, fontSize: 30 }} />
+                )}
+                <Typography variant="body1" fontSize={20} fontWeight={500}>
+                    {props.description}
+                </Typography>
+            </Grid>
+
 
         </Grid>
     );

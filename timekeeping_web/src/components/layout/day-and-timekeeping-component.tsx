@@ -18,11 +18,13 @@ export default function DayAndTimekeepingComponent() {
             </Box>
             <Box sx={{height: '12%', width: '100%'}}>
                 <FirstItemTimekeeping
+                    status='1'
                     imageSrc="http://100.83.174.102:8181/api/v1/file/media/avatar/2003"
                     name="Phạm Hữu Nhân"
                     title="Lotte Finance"
                     timeIn="08:11:22"
-                    timeOut="17:21:33"/>
+                    timeOut="17:21:33"
+                    description="Welcome"/>
             </Box>
             <Box sx={{height: '69%', width: '100%', overflowY: 'auto'}}>
                 <Stack spacing={1} sx={{}}>
