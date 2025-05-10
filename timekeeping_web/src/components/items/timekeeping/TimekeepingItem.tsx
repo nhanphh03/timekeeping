@@ -1,10 +1,10 @@
 import {Box, Grid, Typography} from '@mui/material';
-import {TimekeepingItemProps} from "../../interfaces/TimekeepingItemProps";
+import {TimekeepingItemProps} from "../../../interfaces/TimekeepingItemProps";
 
 export default function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
     return (
         <Grid container sx={{
-            backgroundColor: props.index % 2 === 0 ? '#ffffff' : '#ececec',
+            backgroundColor: props.index as number % 2 === 0 ? '#ffffff' : '#ececec',
             display: 'flex',
             alignItems: 'center',
             height: 110,
