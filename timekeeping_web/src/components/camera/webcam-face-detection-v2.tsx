@@ -2,12 +2,15 @@ import {useEffect, useRef, useState} from 'react';
 import * as faceapi from 'face-api.js';
 import * as tf from '@tensorflow/tfjs';
 import {Box} from '@mui/material';
+import {sendDetectFaceImgBase64} from "../service/APIService";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function WebcamFaceDetectionV2({ sx, videoWidth = 750, videoHeight = 500 }){
 
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
 
+    const id = uuidv4();
     const [selectedFaceDetector] = useState('ssd_mobilenetv1');
     const [inputSize] = useState(512);
     const [minConfidence] = useState(0.5);
@@ -67,21 +70,51 @@ export default function WebcamFaceDetectionV2({ sx, videoWidth = 750, videoHeigh
             const options = getFaceDetectorOptions();
             const result = await faceapi.detectSingleFace(video, options);
 
-            const resizedResult = result && faceapi.resizeResults(result, displaySize);
+            // Kiểm tra xem có phát hiện khuôn mặt hay không
+            if (!result) {
+                requestAnimationFrame(detect);
+                return;
+            }
+
+            const resizedResult = faceapi.resizeResults(result, displaySize);
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             if (resizedResult) {
+                // Vẽ kết quả phát hiện lên canvas
                 faceapi.draw.drawDetections(canvas, resizedResult);
 
                 const box = resizedResult.box;
+
+                // Tạo canvas mới để chứa phần khuôn mặt
                 const faceCanvas = document.createElement('canvas');
                 faceCanvas.width = box.width;
                 faceCanvas.height = box.height;
 
-                // console.log('Detected face:', resizedResult);
-                // const base64Image = faceCanvas.toDataURL('image/png');
-                // console.log('Cropped Face Base64:', base64Image);
+                const faceCtx = faceCanvas.getContext('2d');
+                if (!faceCtx) {
+                    console.error('Cannot get canvas 2D context');
+                    return;
+                }
+
+                // Cắt phần khuôn mặt từ canvas gốc và vẽ vào faceCanvas
+                faceCtx.drawImage(
+                    video, // Dùng video trực tiếp thay vì originalCanvas
+                    box.x, box.y, box.width, box.height, // Phần cần cắt
+                    0, 0, box.width, box.height // Vị trí vẽ lên faceCanvas
+                );
+
+                // Chuyển ảnh thành base64
+                const base64Image = faceCanvas.toDataURL('image/png');
+
+                const body = {
+                    base64_image: base64Image,
+                    request_id: uuidv4(),
+                    time_request: new Date().getTime(),
+                    camera_code: 'LAPTOP_LENOVO'
+                };
+
+                sendDetectFaceImgBase64("http://localhost:2121/procedure/send-detector", body);
             }
 
             requestAnimationFrame(detect);
