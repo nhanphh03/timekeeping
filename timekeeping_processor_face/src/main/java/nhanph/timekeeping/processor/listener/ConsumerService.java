@@ -71,12 +71,13 @@ public class ConsumerService {
         asyncUploadService.uploadImageDetectAsync(message, faceObject.getPeopleId());
 
         LocalDateTime now = LocalDateTime.now();
-        String path = String.format("/%d/%02d/%02d/%s.jpg",
+        String path = String.format("/%d/%02d/%02d/%s/",
                 now.getYear(),
                 now.getMonthValue(),
                 now.getDayOfMonth(),
                 faceObject.getPeopleId()
         );
+        path = path + "/" +  message.getRequestId() + ".jpg";
 
         Detection detection = buildDetection(faceObject, message, recognitionStatus, path);
         detectionRepository.save(detection);
@@ -115,3 +116,4 @@ public class ConsumerService {
         return firstTimeCheckIn.toString();
     }
 }
+

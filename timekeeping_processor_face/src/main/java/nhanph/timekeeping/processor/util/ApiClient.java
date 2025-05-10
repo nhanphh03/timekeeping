@@ -54,7 +54,7 @@ public class ApiClient {
         while (attempt < MAX_RETRIES) {
             try {
                 HttpRequest request = buildPostRequest(url, requestBody, headers);
-                log.info("Sending POST request to {} (attempt {}): {}", url, attempt + 1, requestBody);
+                log.info("Sending POST request to {} (attempt {})", url, attempt + 1);
 
                 HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
