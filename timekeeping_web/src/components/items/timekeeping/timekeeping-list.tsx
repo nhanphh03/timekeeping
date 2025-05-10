@@ -12,8 +12,7 @@ export default function TimekeepingList() {
                 title="Nhan"
                 timeIn="08:00:00"
                 timeOut="17:00:00"
-
-                description="Welcome"
+                description="Done"
             />
             <TimekeepingItem
                 index={'03'}
@@ -23,7 +22,7 @@ export default function TimekeepingList() {
                 title="Nhan"
                 timeIn="08:00:00"
                 timeOut="17:00:00"
-                description="Welcome"
+                description="Done"
             />
             <TimekeepingItem
                 index={'04'}
@@ -33,7 +32,7 @@ export default function TimekeepingList() {
                 title="Nhan"
                 timeIn="08:00:00"
                 timeOut="17:00:00"
-                description="Welcome"
+                description="Done"
             />
             <TimekeepingItem
                 index={'05'}

@@ -30,7 +30,7 @@ export default function CameraAndTimeComponent() {
                 <Box sx={{height: '15%'}}>
                     <DescriptionComponent/>
                 </Box>
-                <Box sx={{height: '40%'}}>
+                <Box sx={{height: '40%', mt: 2}}>
                     <RealTimeComponent/>
                 </Box>
                 <Box sx={{height: '45%'}}>
