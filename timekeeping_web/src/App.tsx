@@ -1,7 +1,7 @@
 import {Grid} from '@mui/material';
 import * as React from 'react';
-import CameraAndTimeComponent from "./components/layout/CameraAndTimeComponent";
-import DayAndTimekeepingComponent from "./components/layout/DayAndTimekeepingComponent";
+import CameraAndTimeComponent from "./components/layout/camera-and-time-component";
+import DayAndTimekeepingComponent from "./components/layout/day-and-timekeeping-component";
 
 export default function App() {
     return (

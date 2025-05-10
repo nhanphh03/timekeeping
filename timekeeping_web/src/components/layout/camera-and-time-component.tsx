@@ -1,9 +1,9 @@
 import {Box, Typography} from "@mui/material";
-import WebcamFaceDetectionV2 from "../camera/WebcamFaceDetectionV2";
+import WebcamFaceDetectionV2 from "../camera/webcam-face-detection-v2";
 import * as React from "react";
-import RealTimeComponent from "../items/clock/RealTimeComponent";
-import DescriptionComponent from "../items/clock/DescriptionComponent";
-import LogoComponent from "../items/logo/LogoComponent"
+import RealTimeComponent from "../items/clock/real-time-component";
+import DescriptionComponent from "../items/clock/description-component";
+import LogoComponent from "../items/logo/logo-component"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 export default function CameraAndTimeComponent() {

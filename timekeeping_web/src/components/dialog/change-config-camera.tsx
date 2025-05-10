@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import Slider from '@mui/material/Slider';
-import {CameraConfigProps} from "../../interfaces/CameraConfigProps";
+import {CameraConfigProps} from "../types";
 
 export default function ChangeConfigCamera({onSave}: CameraConfigProps) {
     const [open, setOpen] = React.useState(false);

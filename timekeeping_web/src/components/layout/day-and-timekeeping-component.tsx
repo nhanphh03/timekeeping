@@ -1,11 +1,11 @@
 import {Box, Grid} from "@mui/material";
-import DayItemList from "../items/day/DayItemList";
-import FirstItemTimekeeping from "../items/timekeeping/FirstItemTimekeeping";
+import DayItemList from "../items/day/day-item-list";
+import FirstItemTimekeeping from "../items/timekeeping/first-item-timekeeping";
 import Stack from "@mui/system/Stack";
-import TimekeepingList from "../items/timekeeping/TimekeepingList";
-import Footer from "./Footer";
+import TimekeepingList from "../items/timekeeping/timekeeping-list";
+import Footer from "./footer";
 import * as React from "react";
-import {CameraConfig} from "../../interfaces/CameraConfig";
+import {CameraConfig} from "../types";
 
 export default function DayAndTimekeepingComponent() {
     const [cameraConfig, setCameraConfig] = React.useState<CameraConfig | null>(null);
