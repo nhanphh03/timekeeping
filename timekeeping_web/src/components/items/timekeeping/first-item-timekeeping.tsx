@@ -1,5 +1,5 @@
 import {Box, Grid, Typography} from '@mui/material';
-import {TimekeepingItemProps} from "../../../interfaces/TimekeepingItemProps";
+import {TimekeepingItemProps} from "../../types";
 
 export default function FirstItemTimekeeping(props: Readonly<TimekeepingItemProps>) {
     return (

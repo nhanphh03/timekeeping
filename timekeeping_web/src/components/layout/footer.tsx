@@ -7,7 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import ChangeConfigCamera from '../dialog/ChangeConfigCamera';
+import ChangeConfigCamera from '../dialog/change-config-camera';
 import {CameraConfigProps} from "../../interfaces/CameraConfigProps";
 
 export default function Footer(props: Readonly<CameraConfigProps>) {

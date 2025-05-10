@@ -1,5 +1,5 @@
 import {Stack} from "@mui/material";
-import DayItem from "./DayItem.js";
+import DayItem from "./day-item.js";
 
 export default function DayItemList() {
     return (

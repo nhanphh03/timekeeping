@@ -1,10 +1,10 @@
 import {Box, Grid, Typography} from '@mui/material';
-import {DayItemProps} from "../../../interfaces/DayItemProps";
+import {DayItemProps} from "../../types";
 
 export default function DayItem(props: Readonly<DayItemProps>) {
     return (
         <Grid container sx={{
-            backgroundColor: props.status === 'active' ? '#b3b3b3' : '#ffffff',
+            backgroundColor: props.status === 'active' ? '#e4fcff' : '#ffffff',
             textAlign: 'center',
             borderRadius: 2,
             boxShadow: 3,
