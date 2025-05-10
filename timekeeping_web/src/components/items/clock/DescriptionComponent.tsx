@@ -19,7 +19,7 @@ export default function DescriptionComponent() {
                     color: "#3e3e3e",
                 }}
             >
-                Vui lòng nhìn vào Camera
+                Please look at the camera.
             </Typography>
         </Box>
     );
