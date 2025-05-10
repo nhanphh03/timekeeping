@@ -2,10 +2,7 @@
 
  import nhanph.timekeeping.common.dto.KafkaMessage;
  import nhanph.timekeeping.producer.service.KafkaProducerService;
- import org.springframework.web.bind.annotation.PostMapping;
- import org.springframework.web.bind.annotation.RequestBody;
- import org.springframework.web.bind.annotation.RequestMapping;
- import org.springframework.web.bind.annotation.RestController;
+ import org.springframework.web.bind.annotation.*;
 
  /**
   * {@code @Package:} nhanph.timekeeping.producer.controller
@@ -25,6 +22,7 @@
      }
 
      @PostMapping("/send-detector")
+     @CrossOrigin(origins = "http://192.168.1.9:2003")
      public void sendMessage(@RequestBody KafkaMessage request) {
          producerService.sendMessage(request);
      }
