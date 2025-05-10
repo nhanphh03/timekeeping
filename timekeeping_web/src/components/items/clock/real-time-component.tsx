@@ -11,7 +11,7 @@ const clockBoxStyle = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-};
+}; 
 
 
 interface Time {

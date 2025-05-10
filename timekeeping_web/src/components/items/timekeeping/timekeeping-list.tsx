@@ -1,5 +1,5 @@
 import {Stack} from '@mui/material';
-import TimekeepingItem from './TimekeepingItem';
+import TimekeepingItem from './timekeeping-item';
 
 export default function TimekeepingList() {
     return (

@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { useEffect, useRef, useState, useMemo } from "react";
 import * as faceapi from "face-api.js";
 import * as tf from "@tensorflow/tfjs";
-import {CameraConfigProps} from "../../interfaces/CameraConfigProps";
+import {CameraConfigProps} from "../types";
 
 export default function WebcamFaceDetection(props: Readonly<CameraConfigProps>) {
     const videoRef = useRef<HTMLVideoElement>(null);
