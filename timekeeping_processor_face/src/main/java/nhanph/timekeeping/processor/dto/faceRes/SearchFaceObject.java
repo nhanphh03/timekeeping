@@ -19,7 +19,7 @@ public class SearchFaceObject {
     @JsonProperty("_id")
     private String id;
 
-    @JsonProperty("customer_id")
+    @JsonProperty("people_id")
     private String customerId;
 
     private String source;
