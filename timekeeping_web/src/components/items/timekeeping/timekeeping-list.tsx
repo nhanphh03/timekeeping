@@ -1,69 +1,26 @@
 import {Stack} from '@mui/material';
 import TimekeepingItem from './timekeeping-item';
+import {TimekeepingItemProps} from "../../types";
+import {useEffect, useState} from "react";
+import {getAllDetection} from "../../service/APIService";
 
 export default function TimekeepingList() {
+
+    const [data, setData] = useState<TimekeepingItemProps[]>([]);
+    useEffect(() => {
+        getAllDetection('http://localhost:8080/api/detection/all')
+            .then(setData)
+            .catch((err) => console.error('Error fetching timekeeping data:', err));
+    }, []);
     return (
-        <Stack spacing={1} sx={{p: 2}}>
-            <TimekeepingItem
-                index={'02'}
-                status='2'
-                imageSrc="http://100.83.174.102:8181/api/v1/file/media/avatar/2003"
-                name="Nguyễn Văn A"
-                title="Nhan"
-                timeIn="08:00:00"
-                timeOut="17:00:00"
-                description="Done"
-            />
-            <TimekeepingItem
-                index={'03'}
-                status='1'
-                imageSrc="http://100.83.174.102:8181/api/v1/file/media/avatar/2003"
-                name="Nguyễn Văn A"
-                title="Nhan"
-                timeIn="08:00:00"
-                timeOut="17:00:00"
-                description="Done"
-            />
-            <TimekeepingItem
-                index={'04'}
-                status='2'
-                imageSrc="http://100.83.174.102:8181/api/v1/file/media/avatar/2003"
-                name="Nguyễn Văn A"
-                title="Nhan"
-                timeIn="08:00:00"
-                timeOut="17:00:00"
-                description="Done"
-            />
-            <TimekeepingItem
-                index={'05'}
-                status='1'
-                imageSrc="http://100.83.174.102:8181/api/v1/file/media/avatar/2003"
-                name="Nguyễn Văn A"
-                title="Nhan"
-                timeIn="08:00:00"
-                timeOut="17:00:00"
-                description="Welcome"
-            />
-            <TimekeepingItem
-                index={'06'}
-                status='1'
-                imageSrc="http://100.83.174.102:8181/api/v1/file/media/avatar/2003"
-                name="Nguyễn Văn A"
-                title="Nhan"
-                timeIn="08:00:00"
-                timeOut="17:00:00"
-                description="Welcome"
-            />
-            <TimekeepingItem
-                index={'07'}
-                status='0'
-                imageSrc="http://100.83.174.102:8181/api/v1/file/media/avatar/2003"
-                name="Nguyễn Văn A"
-                title="Nhan"
-                timeIn="08:00:00"
-                timeOut="17:00:00"
-                description="Insufficient"
-            />
+        <Stack spacing={1} sx={{ p: 2 }}>
+            {data.map((item, idx) => (
+                <TimekeepingItem
+                    key={idx}
+                    {...item}
+                    index={String(idx + 1).padStart(2, '0')}
+                />
+            ))}
         </Stack>
     );
 }
