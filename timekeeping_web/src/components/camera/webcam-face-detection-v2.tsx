@@ -109,8 +109,7 @@ export default function WebcamFaceDetectionV2({ sx, videoWidth = 750, videoHeigh
 
                 const body = {
                     base64_image: base64Image,
-                    request_id: uuidv4(),
-                    time_request: new Date().getTime(),
+                    time_request: formatDate(new Date()),
                     camera_code: 'LAPTOP_LENOVO'
                 };
 
@@ -122,6 +121,12 @@ export default function WebcamFaceDetectionV2({ sx, videoWidth = 750, videoHeigh
 
         detect();
     };
+
+    function formatDate(date) {
+        const pad = (n) => n.toString().padStart(2, '0');
+        return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ` +
+            `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+    }
 
     return (
         <Box sx={{...sx}}>
