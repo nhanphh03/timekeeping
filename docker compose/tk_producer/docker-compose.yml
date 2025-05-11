@@ -1,0 +1,8 @@
+version: '3'
+services:
+  tk_producer:
+    image: tk_producer_img
+    container_name: tk_producer
+    ports:
+      - "2121:2121"
+    restart: always

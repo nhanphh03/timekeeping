@@ -5,10 +5,19 @@ import Stack from "@mui/system/Stack";
 import TimekeepingList from "../items/timekeeping/timekeeping-list";
 import Footer from "./footer";
 import * as React from "react";
-import {CameraConfig} from "../types";
+import {CameraConfig, TimekeepingItemProps} from "../types";
+import {useEffect, useState} from "react";
+import {firstDetection} from "../service/APIService";
 
 export default function DayAndTimekeepingComponent() {
     const [cameraConfig, setCameraConfig] = React.useState<CameraConfig | null>(null);
+
+    const [data, setData] = useState<TimekeepingItemProps>();
+    useEffect(() => {
+        firstDetection('http://localhost:8080/api/detection/first')
+            .then(setData)
+            .catch((err) => console.error('Error fetching timekeeping data:', err));
+    }, []);
 
     return (
         <Grid sx={{height: '100%'}}>
@@ -17,14 +26,7 @@ export default function DayAndTimekeepingComponent() {
                 <DayItemList/>
             </Box>
             <Box sx={{height: '12%', width: '100%'}}>
-                <FirstItemTimekeeping
-                    status='1'
-                    imageSrc="http://100.83.174.102:8181/api/v1/file/media/avatar/2003"
-                    name="Phạm Hữu Nhân"
-                    title="Lotte Finance"
-                    timeIn="08:11:22"
-                    timeOut="17:21:33"
-                    description="Welcome"/>
+                <FirstItemTimekeeping {...data}/>
             </Box>
             <Box sx={{height: '69%', width: '100%', overflowY: 'auto'}}>
                 <Stack spacing={1} sx={{}}>

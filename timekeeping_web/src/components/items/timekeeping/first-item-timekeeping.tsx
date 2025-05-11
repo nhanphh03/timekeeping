@@ -3,9 +3,9 @@ import {TimekeepingItemProps} from "../../types";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
-import CircleIcon from "@mui/icons-material/Circle";
 
 export default function FirstItemTimekeeping(props: Readonly<TimekeepingItemProps>) {
+
     return (
         <Grid sx={{
             backgroundColor: '#e4fcff',
@@ -35,7 +35,7 @@ export default function FirstItemTimekeeping(props: Readonly<TimekeepingItemProp
                         }}
                         variant="body2"
                     >
-                        01
+                        {props.index}
                     </Typography>
                 </Box>
                 <Box sx={{display: 'flex', ml: 2}}>
