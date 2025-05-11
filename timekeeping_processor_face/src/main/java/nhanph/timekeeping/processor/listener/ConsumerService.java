@@ -63,33 +63,33 @@ public class ConsumerService {
     }
 
     private String handleFaceResponse(SearchFaceObject faceObject, KafkaMessage message) {
-        if (faceObject == null || StringUtils.isEmpty(faceObject.getPeopleId())) return null;
+        if (faceObject == null || StringUtils.isEmpty(faceObject.getCustomerId())) return null;
 
         Double score = faceObject.getScore();
         if (score == null || score < 0 || score > 1) return null;
 
         String recognitionStatus = determineRecognitionStatus(score);
 
-        asyncUploadService.uploadImageDetectAsync(message, faceObject.getPeopleId());
+        asyncUploadService.uploadImageDetectAsync(message, faceObject.getCustomerId());
 
         LocalDateTime now = LocalDateTime.now();
         String path = String.format("/%d/%02d/%02d/%s/",
                 now.getYear(),
                 now.getMonthValue(),
                 now.getDayOfMonth(),
-                faceObject.getPeopleId()
+                faceObject.getCustomerId()
         );
 
         path = path +  message.getRequestId() + ".jpg";
 
-        if (compareLastSearchFace(faceObject.getPeopleId(), message.getTimeRequest())) {
+        if (compareLastSearchFace(faceObject.getCustomerId(), message.getTimeRequest())) {
             log.info("{}: Skip face {} because it was detected in the last 30 seconds",
-                    message.getRequestId(), faceObject.getPeopleId());
+                    message.getRequestId(), faceObject.getCustomerId());
             return null;
         }
         Detection detection = buildDetection(faceObject, message, recognitionStatus, path);
         detectionRepository.save(detection);
-        return faceObject.getPeopleId();
+        return faceObject.getCustomerId();
     }
 
     private String determineRecognitionStatus(Double score) {
@@ -104,37 +104,37 @@ public class ConsumerService {
                 .cameraCode(message.getCameraCode())
                 .searchId(searchFaceObject.getId())
                 .score(searchFaceObject.getScore())
-                .peopleId(searchFaceObject.getPeopleId())
+                .customerCode(searchFaceObject.getCustomerId())
                 .createdTime(new Date())
                 .capturedTime(message.getTimeRequest())
                 .imagePath(filePath)
-                .firstTimeCheckIn(getFirstTimeCheckIn(searchFaceObject.getPeopleId(), now))
+                .firstTimeCheckIn(getFirstTimeCheckIn(searchFaceObject.getCustomerId(), now))
                 .lastTimeCheckIn(now)
                 .responseRaw(searchFaceObject.toString())
                 .recognitionStatus(recognitionStatus)
                 .build();
     }
 
-    private String getFirstTimeCheckIn(String peopleId, String now) {
-        Object firstTimeCheckIn = redisService.get("first_" + peopleId);
+    private String getFirstTimeCheckIn(String customerId, String now) {
+        Object firstTimeCheckIn = redisService.get("first_" + customerId);
         if (firstTimeCheckIn == null) {
             firstTimeCheckIn = now;
-            redisService.save("first_" + peopleId, firstTimeCheckIn);
+            redisService.save("first_" + customerId, firstTimeCheckIn);
         }
         return firstTimeCheckIn.toString();
     }
 
 
-    private boolean compareLastSearchFace(String peopleId, String requestTime) {
+    private boolean compareLastSearchFace(String customerId, String requestTime) {
         if (requestTime == null) {
             return true;
         }
 
-        Object lastTimeCheckIn = redisService.get("last_" + peopleId);
+        Object lastTimeCheckIn = redisService.get("last_" + customerId);
 
         if (lastTimeCheckIn == null) {
             log.info("lastTimeCheckIn is null, save to redis");
-            redisService.save("last_" + peopleId, requestTime);
+            redisService.save("last_" + customerId, requestTime);
             return false;
         }
 
@@ -151,7 +151,7 @@ public class ConsumerService {
                 return true;
             }
 
-            redisService.save("last_" + peopleId, requestTime);
+            redisService.save("last_" + customerId, requestTime);
             return false;
 
         } catch (Exception e) {
