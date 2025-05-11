@@ -77,7 +77,7 @@ public class ConsumerService {
                 now.getDayOfMonth(),
                 faceObject.getPeopleId()
         );
-        path = path + "/" +  message.getRequestId() + ".jpg";
+        path = path +  message.getRequestId() + ".jpg";
 
         Detection detection = buildDetection(faceObject, message, recognitionStatus, path);
         detectionRepository.save(detection);
