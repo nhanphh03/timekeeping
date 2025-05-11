@@ -43,11 +43,19 @@ public class Constants {
     public static final String RECOGNITION_STATUS_A = "A";
     public static final String RECOGNITION_STATUS_B = "B";
 
+    public static final String STATUS_ACTIVE = "2";
+    public static final String STATUS_INACTIVE = "0";
+    public static final String STATUS_WELCOME = "1";
+    public static final String DESC_WELCOME = "Welcome";
+    public static final String DESC_INSUFFICIENT = "Insufficient";
+    public static final String DESC_DONE = "Done";
+
     public static class SERVICE_MINIO {
         public static String URL_MINIO;
         public static String GET = "/";
         public static String UPLOAD = "/upload";
         public static String UPLOAD_BASE64 = "/upload/base64";
     }
+    public static final long TIME_WORK = 8 * 60 * 60 * 1000;
 }
 

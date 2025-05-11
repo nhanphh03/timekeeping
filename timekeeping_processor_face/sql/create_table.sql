@@ -41,6 +41,7 @@ CREATE TABLE customer
     date_of_birth                DATETIME null,
     gender                      VARCHAR(50) null,
     group_id                           int null,
+    type_id                           int null,
     image_path                VARCHAR(255) null,
     status               int null,
     mobile_phone               varchar(20)  null
@@ -64,4 +65,12 @@ CREATE TABLE users
     status               int null
 );
 
+CREATE TABLE customer_group
+(
+    id                       BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name                VARCHAR(255) null,
+    created_time                DATETIME null,
+    code                      VARCHAR(50) null,
+    status               int null
+);
 

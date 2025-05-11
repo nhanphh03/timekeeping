@@ -6,11 +6,9 @@ import nhanph.timekeeping.common.dto.KafkaMessage;
 import nhanph.timekeeping.processor.dto.faceReq.SearchFaceRequest;
 import nhanph.timekeeping.processor.dto.faceRes.SearchFaceObject;
 import nhanph.timekeeping.processor.dto.faceRes.SearchFaceResponse;
+import nhanph.timekeeping.processor.entity.CapturedImages;
 import nhanph.timekeeping.processor.entity.Detection;
-import nhanph.timekeeping.processor.repository.DetectionRepository;
-import nhanph.timekeeping.processor.service.AsyncUploadService;
-import nhanph.timekeeping.processor.service.FaceService;
-import nhanph.timekeeping.processor.service.RedisService;
+import nhanph.timekeeping.processor.service.*;
 import nhanph.timekeeping.processor.util.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -28,7 +26,8 @@ import java.util.Date;
 public class ConsumerService {
 
     private final FaceService faceService;
-    private final DetectionRepository detectionRepository;
+    private final DetectionService detectionService;
+    private final CapturedImagesService capturedImagesService;
     private final AsyncUploadService asyncUploadService;
     private final RedisService redisService;
 
@@ -51,7 +50,21 @@ public class ConsumerService {
         SearchFaceResponse response = searchFace(message.getBase64Image());
         if (response == null || !Constants.STATUS_SUCCESS.equals(response.getStatus())) return null;
         if (response.getData() == null || response.getData().isEmpty()) return null;
-        return handleFaceResponse(response.getData().get(0), message);
+
+        LocalDateTime now = LocalDateTime.now();
+        String path = String.format("/%d/%02d/%02d/",
+                now.getYear(),
+                now.getMonthValue(),
+                now.getDayOfMonth()
+        );
+        SearchFaceObject faceObject = response.getData().get(0);
+        Double score = faceObject.getScore();
+        String recognitionStatus = determineRecognitionStatus(score);
+
+        CapturedImages capturedImages = buildCapturedImages(faceObject, message, path, recognitionStatus);
+        capturedImagesService.saveCapturedImage(capturedImages);
+
+        return handleFaceResponse(faceObject, message, recognitionStatus, score);
     }
 
     private SearchFaceResponse searchFace(String base64Img) {
@@ -62,13 +75,11 @@ public class ConsumerService {
         return faceService.searchFace(request);
     }
 
-    private String handleFaceResponse(SearchFaceObject faceObject, KafkaMessage message) {
+    private String handleFaceResponse(SearchFaceObject faceObject, KafkaMessage message,
+                                      String recognitionStatus, Double score ) {
         if (faceObject == null || StringUtils.isEmpty(faceObject.getCustomerId())) return null;
 
-        Double score = faceObject.getScore();
         if (score == null || score < 0 || score > 1) return null;
-
-        String recognitionStatus = determineRecognitionStatus(score);
 
         asyncUploadService.uploadImageDetectAsync(message, faceObject.getCustomerId());
 
@@ -82,13 +93,15 @@ public class ConsumerService {
 
         path = path +  message.getRequestId() + ".jpg";
 
+        log.info("Save captured image to path: {}", path);
+
         if (compareLastSearchFace(faceObject.getCustomerId(), message.getTimeRequest())) {
             log.info("{}: Skip face {} because it was detected in the last 30 seconds",
                     message.getRequestId(), faceObject.getCustomerId());
             return null;
         }
         Detection detection = buildDetection(faceObject, message, recognitionStatus, path);
-        detectionRepository.save(detection);
+        detectionService.saveDetection(detection);
         return faceObject.getCustomerId();
     }
 
@@ -112,6 +125,20 @@ public class ConsumerService {
                 .lastTimeCheckIn(now)
                 .responseRaw(searchFaceObject.toString())
                 .recognitionStatus(recognitionStatus)
+                .build();
+    }
+
+    private CapturedImages buildCapturedImages(SearchFaceObject searchFaceObject, KafkaMessage message
+            , String path, String recognitionStatus){
+        return CapturedImages.builder()
+                .imagePath(path)
+                .responseRaw(searchFaceObject.toString())
+                .searchId(searchFaceObject.getId())
+                .capturedTime(message.getTimeRequest())
+                .responseTime(null)
+                .cameraCode(message.getCameraCode())
+                .customerCode(searchFaceObject.getCustomerId())
+                .detectedStatus(recognitionStatus)
                 .build();
     }
 
@@ -147,7 +174,7 @@ public class ConsumerService {
             long diff = timestamp.getTime() - timestampLast.getTime();
 
             log.info("lastTimeCheckIn: {}, requestTime: {}", lastTimeCheckIn, requestTime);
-            if (Math.abs(diff) < 30000) {
+            if (Math.abs(diff) < 60000) {
                 return true;
             }
 
