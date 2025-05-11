@@ -16,8 +16,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Slf4j
@@ -77,8 +79,14 @@ public class ConsumerService {
                 now.getDayOfMonth(),
                 faceObject.getPeopleId()
         );
+
         path = path +  message.getRequestId() + ".jpg";
 
+        if (compareLastSearchFace(faceObject.getPeopleId(), message.getTimeRequest())) {
+            log.info("{}: Skip face {} because it was detected in the last 30 seconds",
+                    message.getRequestId(), faceObject.getPeopleId());
+            return null;
+        }
         Detection detection = buildDetection(faceObject, message, recognitionStatus, path);
         detectionRepository.save(detection);
         return faceObject.getPeopleId();
@@ -114,6 +122,42 @@ public class ConsumerService {
             redisService.save("first_" + peopleId, firstTimeCheckIn);
         }
         return firstTimeCheckIn.toString();
+    }
+
+
+    private boolean compareLastSearchFace(String peopleId, String requestTime) {
+        if (requestTime == null) {
+            return true;
+        }
+
+        Object lastTimeCheckIn = redisService.get("last_" + peopleId);
+
+        if (lastTimeCheckIn == null) {
+            log.info("lastTimeCheckIn is null, save to redis");
+            redisService.save("last_" + peopleId, requestTime);
+            return false;
+        }
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime localDateTime = LocalDateTime.parse(requestTime, formatter);
+            Timestamp timestamp = Timestamp.valueOf(localDateTime);
+
+            Timestamp timestampLast = Timestamp.valueOf(lastTimeCheckIn.toString());
+            long diff = timestamp.getTime() - timestampLast.getTime();
+
+            log.info("lastTimeCheckIn: {}, requestTime: {}", lastTimeCheckIn, requestTime);
+            if (Math.abs(diff) < 30000) {
+                return true;
+            }
+
+            redisService.save("last_" + peopleId, requestTime);
+            return false;
+
+        } catch (Exception e) {
+            log.error("Error comparing lastTimeCheckIn and requestTime {}", e.getMessage());
+            return true;
+        }
     }
 }
 
