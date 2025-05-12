@@ -15,11 +15,13 @@
     "@mui/icons-material": "^6.4.11",
     "@mui/material": "^6.4.11",
     "@mui/system": "^7.0.2",
+    "@stomp/stompjs": "^7.1.1",
     "@tensorflow/tfjs": "^3.21.0",
     "express": "^5.1.0",
     "face-api.js": "^0.22.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "sockjs-client": "^1.6.1",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
