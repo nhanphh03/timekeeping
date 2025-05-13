@@ -9,7 +9,7 @@ export default function App() {
             <Grid item xs={5}>
                 <CameraAndTimeComponent/>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={7} sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
                 <DayAndTimekeepingComponent/>
             </Grid>
         </Grid>

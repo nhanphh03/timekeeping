@@ -12,9 +12,10 @@ import {Client as StompClient} from "@stomp/stompjs/esm6/client";
 // @ts-ignore
 import SockJS from "sockjs-client";
 import {IMessage, Stomp} from "@stomp/stompjs";
-import {DETECTION_API, WEBSOCKET_URL} from "../../env";
+import {DETECTION_API, WEBSOCKET_URL} from "../../../env";
+import ConsecutiveSnackbars from "./ConsecutiveSnackbars";
 
-type SetState<T> = React.Dispatch<React.SetStateAction<T>>; // Introduced type for setState
+type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export default function DayAndTimekeepingComponent() {
     const [, setCameraConfig] = useState<CameraConfig | null>(null);
@@ -57,7 +58,6 @@ export default function DayAndTimekeepingComponent() {
             .catch(err => console.error("Error fetching timekeeping items:", err));
     }, []);
 
-
     useEffect(() => {
         stompClientRef.current = initializeStompClient(setTimekeepingList);
         return () => {
@@ -68,22 +68,24 @@ export default function DayAndTimekeepingComponent() {
     }, []);
 
     return (
-        <Grid sx={{ height: "100%" }}>
-            <Box sx={{ height: "1%", width: "100%" }}></Box>
-            <Box sx={{ height: "10%", width: "100%" }}>
-                <DayItemList />
+        <Grid sx={{height: "100%"}}>
+            <Box sx={{height: "1%", width: "100%"}}></Box>
+            <Box sx={{height: "10%", width: "100%"}}>
+                <ConsecutiveSnackbars/>
+                <DayItemList/>
             </Box>
-            <Box sx={{ height: "12%", width: "100%" }}>
+            <Box sx={{height: "10%", width: "100%"}}>
                 <FirstItemTimekeeping {...firstItem} />
             </Box>
-            <Box sx={{ height: "69%", width: "100%", overflowY: "auto" }}>
+            <Box sx={{height: "2%", width: "100%"}}></Box>
+            <Box sx={{height: "68%", width: "100%", overflowY: "auto"}}>
                 <Stack spacing={2} sx={{}}>
-                    <TimekeepingList items={timekeepingList} />
+                    <TimekeepingList items={timekeepingList}/>
                 </Stack>
             </Box>
-            <Box sx={{ height: "1%", width: "100%" }}></Box>
-            <Box sx={{ height: "7%", width: "98%", ml: 2 }}>
-                <Footer onSave={setCameraConfig} />
+            <Box sx={{height: "1%", width: "100%"}}></Box>
+            <Box sx={{height: "7%", width: "98%", ml: 2}}>
+                <Footer onSave={setCameraConfig}/>
             </Box>
         </Grid>
     );
