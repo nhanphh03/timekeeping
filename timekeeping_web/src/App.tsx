@@ -2,7 +2,6 @@ import {Grid} from '@mui/material';
 import * as React from 'react';
 import CameraAndTimeComponent from "./components/layout/camera-and-time-component";
 import DayAndTimekeepingComponent from "./components/layout/day-and-timekeeping-component";
-import WebSocketDemo from "./SocktDemo";
 
 export default function App() {
     return (
@@ -11,8 +10,7 @@ export default function App() {
                 <CameraAndTimeComponent/>
             </Grid>
             <Grid item xs={7}>
-                {/*<DayAndTimekeepingComponent/>*/}
-                <WebSocketDemo/>
+                <DayAndTimekeepingComponent/>
             </Grid>
         </Grid>
     );
