@@ -15,7 +15,7 @@ public class ScheduledMessageSender {
         this.messagingTemplate = messagingTemplate;
     }
 
-    @Scheduled(fixedRate = 1000) // gửi mỗi 1000ms = 1 giây
+//    @Scheduled(fixedRate = 1000) // gửi mỗi 1000ms = 1 giây
     public void sendPeriodicMessage() {
         String message = "Server time message " + count++;
         messagingTemplate.convertAndSend("/topic/messages", message);
