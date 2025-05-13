@@ -3,6 +3,7 @@ package nhanph.timekeeping.processor.listener;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nhanph.timekeeping.common.dto.KafkaMessage;
+import nhanph.timekeeping.processor.dto.detect.DetectionDTO;
 import nhanph.timekeeping.processor.dto.faceReq.SearchFaceRequest;
 import nhanph.timekeeping.processor.dto.faceRes.SearchFaceObject;
 import nhanph.timekeeping.processor.dto.faceRes.SearchFaceResponse;
@@ -12,6 +13,7 @@ import nhanph.timekeeping.processor.service.*;
 import nhanph.timekeeping.processor.util.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -19,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -30,6 +33,7 @@ public class ConsumerService {
     private final CapturedImagesService capturedImagesService;
     private final AsyncUploadService asyncUploadService;
     private final RedisService redisService;
+    private final SimpMessagingTemplate messagingTemplate;
 
     @KafkaListener(topics = "timekeeping-detector", groupId = "timekeeping-detector")
     public void consume(KafkaMessage message) {
@@ -102,6 +106,8 @@ public class ConsumerService {
         }
         Detection detection = buildDetection(faceObject, message, recognitionStatus, path);
         detectionService.saveDetection(detection);
+        List<DetectionDTO> detectionDTOS = detectionService.getAllDetection();
+        messagingTemplate.convertAndSend("/topic/timekeeping-detector", detectionDTOS);
         return faceObject.getCustomerId();
     }
 

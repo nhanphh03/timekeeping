@@ -20,11 +20,11 @@ public class Constants {
     @Value("${services.minio_service}")
     private String minioService;
 
-    public static class SERVICE_FACE {
-        public static String URL_FACE;
-        public static String SEARCH = "/search";
-        public static String REGISTER_FACE = "/register-face";
-        public static String REMOVE_FACE = "/api/v1/delete";
+    public static class serviceFace {
+        public static String urlFace;
+        public static String search = "/search";
+        public static final String registerFace = "/register-face";
+        public static String removeFace = "/api/v1/delete";
     }
 
 //    @PostConstruct là một annotation trong Spring, dùng để chỉ định phương thức sẽ được gọi ngay sau khi
@@ -34,8 +34,8 @@ public class Constants {
 
     @PostConstruct
     public void init() {
-        SERVICE_FACE.URL_FACE = faceService;
-        SERVICE_MINIO.URL_MINIO = minioService;
+        serviceFace.urlFace = faceService;
+        serviceMinio.urlMinio = minioService;
     }
 
     public static final String DATA_SOURCE = "timekeeping_face";
@@ -50,8 +50,8 @@ public class Constants {
     public static final String DESC_INSUFFICIENT = "Insufficient";
     public static final String DESC_DONE = "Done";
 
-    public static class SERVICE_MINIO {
-        public static String URL_MINIO;
+    public static class serviceMinio {
+        public static String urlMinio;
         public static String GET = "/";
         public static String UPLOAD = "/upload";
         public static String UPLOAD_BASE64 = "/upload/base64";
