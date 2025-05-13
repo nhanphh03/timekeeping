@@ -51,12 +51,18 @@ export default function TimekeepingItem(props: Readonly<TimekeepingItemProps>) {
             </Grid>
             <Grid item xs={4}>
                 <Box sx={{ml:4}}>
-                    <Typography sx={{}} variant="subtitle1" fontSize={24} fontWeight={600}>
+                    <Typography sx={{}} variant="subtitle1" fontSize={25} fontWeight={600}>
                         {props.name}
                     </Typography>
-                    <Typography sx={{}} variant="body1" fontSize={15} fontWeight={500}>
-                        {props.title}
-                    </Typography>
+
+                    <Box sx={{display: 'flex', alignItems: 'center'}}>
+                        <Typography sx={{mr: 2}} variant="body1" fontSize={18} fontWeight={500}>
+                            {props.customerCode}
+                        </Typography>
+                        <Typography sx={{}} variant="body1" fontSize={18} fontWeight={500}>
+                            {props.title}
+                        </Typography>
+                    </Box>
                 </Box>
             </Grid>
             <Grid sx={{display: 'flex'}} item xs={2}>

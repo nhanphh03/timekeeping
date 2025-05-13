@@ -28,6 +28,7 @@ export interface TimekeepingItemProps {
   imageSrc: string;
   description: string;
   status: string
+  customerCode: string
   name: string;
   timeIn: string;
   timeOut: string;

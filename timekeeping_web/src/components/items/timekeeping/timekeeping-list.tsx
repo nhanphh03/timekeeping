@@ -13,7 +13,6 @@ export default function TimekeepingList({ items }: Readonly<TimekeepingListProps
                 <TimekeepingItem
                     key={idx}
                     {...item}
-                    index={String(idx + 1).padStart(2, '0')}
                 />
             ))}
         </Stack>
