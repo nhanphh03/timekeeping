@@ -1,20 +1,15 @@
-import {Stack} from '@mui/material';
+import { Stack } from '@mui/material';
 import TimekeepingItem from './timekeeping-item';
-import {TimekeepingItemProps} from "../../types";
-import {useEffect, useState} from "react";
-import {getAllDetection} from "../../service/APIService";
+import { TimekeepingItemProps } from "../../types";
 
-export default function TimekeepingList() {
+interface TimekeepingListProps {
+    items: TimekeepingItemProps[];
+}
 
-    const [data, setData] = useState<TimekeepingItemProps[]>([]);
-    useEffect(() => {
-        getAllDetection('http://localhost:8080/api/detection/all')
-            .then(setData)
-            .catch((err) => console.error('Error fetching timekeeping data:', err));
-    }, []);
+export default function TimekeepingList({ items }: Readonly<TimekeepingListProps>) {
     return (
         <Stack spacing={1} sx={{ p: 2 }}>
-            {data.map((item, idx) => (
+            {items.map((item, idx) => (
                 <TimekeepingItem
                     key={idx}
                     {...item}

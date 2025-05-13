@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react(), svgr()],
   define: {
-    global: 'globalThis' // 👈 fix lỗi sockjs-client
+    global: 'globalThis'
   },
   server: {
     host: '0.0.0.0',
