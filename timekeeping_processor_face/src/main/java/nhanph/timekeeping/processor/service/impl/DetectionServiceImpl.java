@@ -11,8 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,10 +45,6 @@ public class DetectionServiceImpl implements DetectionService {
         }
 
         processDetectionList(detections);
-        if (detections.size() > 1) {
-            detections.remove(0);
-        }
-
         return detections;
     }
 
@@ -78,7 +72,7 @@ public class DetectionServiceImpl implements DetectionService {
         for (int i = 0; i < list.size(); i++) {
             DetectionDTO item = list.get(i);
             processDetectionStatus(item);
-            item.setIndex(formatIndex(i + 1));
+            item.setIndex(formatIndex(i + 1 ));
         }
     }
 
@@ -107,6 +101,6 @@ public class DetectionServiceImpl implements DetectionService {
             item.setTimeIn(item.getTimeIn().split(" ")[1]);
             item.setTimeOut(item.getTimeOut().split(" ")[1]);
         }
-        item.setImageSrc(Constants.SERVICE_MINIO.URL_MINIO + item.getImageSrc());
+        item.setImageSrc(Constants.serviceMinio.urlMinio + item.getImageSrc());
     }
 }
