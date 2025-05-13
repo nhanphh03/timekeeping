@@ -27,7 +27,7 @@ public class FaceServiceImpl implements FaceService {
     @Override
     public RegisterFaceResponse registerFace(RegisterFaceRequest registerFaceRequest) {
         return apiClient.sendPostRequest(
-                Constants.SERVICE_FACE.URL_FACE + Constants.SERVICE_FACE.REGISTER_FACE,
+                Constants.serviceFace.urlFace + Constants.serviceFace.registerFace,
                 registerFaceRequest,
                 RegisterFaceResponse.class,
                 null
@@ -37,7 +37,7 @@ public class FaceServiceImpl implements FaceService {
     @Override
     public SearchFaceResponse searchFace(SearchFaceRequest searchFaceRequest) {
         return apiClient.sendPostRequest(
-                Constants.SERVICE_FACE.URL_FACE + Constants.SERVICE_FACE.SEARCH,
+                Constants.serviceFace.urlFace + Constants.serviceFace.search,
                 searchFaceRequest,
                 SearchFaceResponse.class,
                 null
@@ -47,7 +47,7 @@ public class FaceServiceImpl implements FaceService {
     @Override
     public RemoveFaceResponse removeFace(RemoveFaceRequest removeFaceRequest) {
         return apiClient.sendPostRequest(
-                Constants.SERVICE_FACE.URL_FACE + Constants.SERVICE_FACE.REMOVE_FACE,
+                Constants.serviceFace.urlFace + Constants.serviceFace.removeFace,
                 removeFaceRequest,
                 RemoveFaceResponse.class,
                 null

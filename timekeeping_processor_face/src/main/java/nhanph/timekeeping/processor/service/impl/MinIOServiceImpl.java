@@ -16,7 +16,7 @@ public class MinIOServiceImpl implements MinIOService {
     @Override
     public void uploadImageDetection(UploadFileDTO imageBase64) {
         apiClient.sendPostRequest(
-                Constants.SERVICE_MINIO.URL_MINIO + Constants.SERVICE_MINIO.UPLOAD_BASE64,
+                Constants.serviceMinio.urlMinio + Constants.serviceMinio.UPLOAD_BASE64,
                 imageBase64,
                 UploadResponseDTO.class,
                 null
