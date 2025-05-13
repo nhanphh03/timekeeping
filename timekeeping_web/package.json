@@ -19,6 +19,7 @@
     "@tensorflow/tfjs": "^3.21.0",
     "express": "^5.1.0",
     "face-api.js": "^0.22.2",
+    "notistack": "^3.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sockjs-client": "^1.6.1",
