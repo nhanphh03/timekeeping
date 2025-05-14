@@ -8,7 +8,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import ChangeConfigCamera from '../dialog/change-config-camera';
-import {CameraConfigProps} from "../../interfaces/CameraConfigProps";
+import {CameraConfigProps} from "../types";
 
 export default function Footer(props: Readonly<CameraConfigProps>) {
     return (

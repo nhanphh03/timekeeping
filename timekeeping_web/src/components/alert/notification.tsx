@@ -1,6 +1,6 @@
 import { EnqueueSnackbar } from 'notistack';
 import { Box, Typography } from '@mui/material';
-import { TimekeepingItemProps } from '../interfaces/TimekeepingItemProps.ts';
+import {TimekeepingItemProps} from "../types";
 
 export const handleClickVariant = (
     enqueueSnackbar: EnqueueSnackbar,
@@ -16,7 +16,7 @@ export const handleClickVariant = (
             <Typography sx={{ marginRight: 8, display: 'flex' }}>
                 Welcome
                 <Typography sx={{ fontWeight: 600, mr: 0.5, ml: 0.5 }}>
-                    {item?.code}
+                    {item?.customerCode}
                 </Typography>
                 {item?.name}
             </Typography>
