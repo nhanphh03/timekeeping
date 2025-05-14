@@ -13,7 +13,6 @@ import {Client as StompClient} from "@stomp/stompjs/esm6/client";
 import SockJS from "sockjs-client";
 import {IMessage, Stomp} from "@stomp/stompjs";
 import {DETECTION_API, WEBSOCKET_URL} from "../../../env";
-import ConsecutiveSnackbars from "./ConsecutiveSnackbars";
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -71,7 +70,6 @@ export default function DayAndTimekeepingComponent() {
         <Grid sx={{height: "100%"}}>
             <Box sx={{height: "1%", width: "100%"}}></Box>
             <Box sx={{height: "10%", width: "100%"}}>
-                <ConsecutiveSnackbars/>
                 <DayItemList/>
             </Box>
             <Box sx={{height: "10%", width: "100%"}}>
