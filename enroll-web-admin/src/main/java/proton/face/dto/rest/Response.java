@@ -1,4 +1,4 @@
-package proton.face.rest;
+package proton.face.dto.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package proton.face.rest;
+package proton.face.dto.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

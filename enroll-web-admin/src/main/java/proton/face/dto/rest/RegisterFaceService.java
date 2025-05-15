@@ -1,17 +1,16 @@
-package proton.face.rest;
+package proton.face.dto.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import proton.face.constant.Constants;
 import proton.face.constant.StatusConstant;
 import proton.face.controller.LoginController;
 import proton.face.entity.People;
 import proton.face.repository.impl.PeopleRepositoryImpl;
-import proton.face.response.DataResponseFromCheckFacesSearch;
-import proton.face.response.DataResponseFromRegisterFaceSearch;
+import proton.face.dto.response.DataResponseFromCheckFacesSearch;
+import proton.face.dto.response.DataResponseFromRegisterFaceSearch;
 import proton.face.service.MinioService;
 import proton.face.util.HttpUtils;
 import proton.face.util.Utils;
