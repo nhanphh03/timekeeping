@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8" name="viewport"
+		content="width=device-width, initial-scale=1"
+		http-equiv="X-UA-Conpatible" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="app.css" />
+	<script name="jquery/jquery.js" library="primefaces"></script>
+	<title>Login</title>
+	<style type="text/css">
+td {
+	margin-top: 50px;
+}
+</style>
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="row">
+			<div class="col-3">
+				<h3>Đăng nhập</h3>
+				<hr style="border-top: 2px solid black;" />
+				<h:form>
+					<div class="ui-fluid">
+						<div class="p-field">
+							<p:outputLabel for="username" value="Tên đăng nhập: " />
+							<p:inputText id="username" value="#{login.user}" />
+							<p:message for="username" />
+						</div>
+
+						<div class="p-field">
+							<p:outputLabel for="password" value="Mật khẩu" />
+							<p:password id="password" value="#{login.pwd}"></p:password>
+							<p:message for="password"></p:message>
+						</div>
+						
+						<div class="p-field">
+							<p:outputLabel for="re-password" value="Nhập lại mật khẩu" />
+							<p:password id="re-password" value="#{login.pwd}"></p:password>
+							<p:message for="re-password"></p:message>
+						</div>
+						<br />
+
+						<div align="center">
+							<p:commandButton style="width: 115px;" action="#{login.validateUsernamePassword}"
+								value="Đăng kí"></p:commandButton>
+						</div>
+
+					</div>
+				</h:form>
+			</div>
+			<div class="col-9">
+				<div style="max-height: 472px; max-width: 654px; float: right;">
+					<h:graphicImage library="images" width="100%" height="100%"
+						name="u0.png" />
+				</div>
+
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

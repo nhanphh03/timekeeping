@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8" name="viewport"
+          content="width=device-width, initial-scale=1"
+          http-equiv="X-UA-Conpatible"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="app.css"/>
+    <h:outputScript name="webcams.js" library="js"/>
+    <title>Đăng ký khuôn mặt</title>
+    <style type="text/css">
+        .close-face {
+            position: absolute;
+            right: 2px;
+            color: red;
+        }
+
+        .close-face:hover {
+            color: red;
+            text-decoration: none;
+        }
+        .prt-dangky-form {
+            background: #f1f1f1;
+            margin-bottom: 0;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .prt-dangky h2 {
+            font-size: 17px;
+            color: #000000;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .prt-dangky label {
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .prt-dangky .form-group {
+            margin-bottom: 15px;
+        }
+
+        .prt-dangky .ui-tabs .ui-tabs-panels .ui-tabs-panel {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .prt-dangky .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
+            font-size: 10px;
+        }
+
+        .prt-dangky .ui-button.ui-button-icon-only .ui-icon {
+            font-size: 10px;
+        }
+
+        .prt-dangky input {
+            height: 37px;
+            border-color: #D2D4D7;
+            border-top-left-radius: 25px !important;
+            border-bottom-left-radius: 25px !important;
+            padding-left: 15px !important;
+        }
+
+        .prt-dangky .ui-inputgroup button {
+            border-top-right-radius: 25px !important;
+            border-bottom-right-radius: 25px !important;
+        }
+
+        .prt-dangky .ui-fluid .p-datepicker .ui-datepicker-trigger.ui-button {
+            border-top-right-radius: 25px !important;
+            border-bottom-right-radius: 25px !important;
+        }
+
+        .prt-dangky .ui-fluid .ui-calendar input {
+            border-radius: 25px !important;
+        }
+
+        .prt-dangky .ui-fluid .ui-inputgroup .ui-button-icon-only {
+            min-width: 2.5em;
+        }
+
+        .prt-dangky .ui-selectonemenu {
+            height: 37px;
+            border-color: #D2D4D7;
+            border-radius: 25px;
+            padding-left: 15px !important;
+        }
+
+        .prt-dangky .ui-inputgroup .ui-icon {
+            margin-top: 0 !important;
+            margin-left: 0 !important;
+            transform: translate(-50%, -50%) !important;
+        }
+
+        .prt-dangky .ui-button-text {
+
+        }
+
+        .prt-dangky .ui-button {
+            background-color: #000000;
+            border-color: #000000;
+        }
+
+        .tt-btn-dang-ky {
+            width: 100%;
+            border-radius: 25px;
+            background-color: #000000;
+            border-color: #000000;
+            text-transform: uppercase;
+        }
+
+        .prt-dangky .ui-tabs.ui-tabs-top > .ui-tabs-nav li.ui-tabs-header.ui-state-active {
+            background: #f1f1f1 !important;
+        }
+
+        .prt-dangky .ui-tabs.ui-tabs-top > .ui-tabs-nav li.ui-tabs-header.ui-state-active a {
+            color: #000;
+        }
+
+        .prt-dangky .ui-tabs .ui-tabs-nav li.ui-tabs-header.ui-state-hover {
+            background: transparent !important;
+        }
+
+        .prt-dangky .ui-tabs .ui-tabs-nav li.ui-tabs-header {
+            background: transparent !important;
+        }
+
+        .prt-dangky .ui-icon-plusthick {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -9px;
+            left: 0.5rem;
+            font-size: 12px;
+        }
+    </style>
+</h:head>
+<h:body>
+    <script type="text/javascript">
+        //<![CDATA[
+        var numberImagePerSnapshot = 10;
+        var delayTime = 100;//ms
+        $(document).ready(function () {
+            Webcams.init();
+            var cam1 = Webcams.create('', '100%', 'auto');
+            cam1.attach('cam');
+
+            $("#snap").click(function () {
+                var images = '';
+                for (var i = 0; i < numberImagePerSnapshot; i++) {
+                    setTimeout(function () {
+                        cam1.snapshot(function (base64) {
+                            if (base64 != undefined) {
+                                images = images + ";" + base64;
+                                console.log('ok');
+                            }
+                        }, 800, 600);
+                    }, i * delayTime);
+                }
+                setTimeout(function () {
+                    if (images.length > 0) {
+                        images = images.slice(1);
+                    }
+                    document.getElementById("main:tab:facesnapshot").value = images;
+                    //console.log(images);
+                    addFace();
+                }, delayTime * (numberImagePerSnapshot + 1));
+            });
+        });
+        //]]>
+    </script>
+    <ui:include src="componentHeader.xhtml">
+    </ui:include>
+    <div class="container prt-dangky">
+        <h:form id="main" enctype="multipart/form-data">
+            <div class="row pt-3">
+                <div class="col-6">
+                    <div class="prt-dangky-form">
+                        <h2>Đăng kí</h2>
+                        <div class="ui-fluid">
+                            <div class="form-group">
+                                <p:messages id="msg" showDetail="true" closable="true">
+                                    <p:autoUpdate/>
+                                </p:messages>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:outputLabel styleClass="input-label" value="Khu vực"/>
+                                        <p:selectOneMenu value="#{registerFaceController.zoneSelected}">
+                                            <f:selectItem itemLabel="Chọn khu vực" itemValue=""/>
+                                            <f:selectItems value="#{registerFaceController.zone}" var="item"
+                                                           itemLabel="#{item.groupName}" itemValue="#{item.groupId}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:focus for="inputPeopleId"/>
+                                        <p:outputLabel value="Mã nhân viên"/>
+                                        <div class="ui-inputgroup">
+                                            <p:inputText id="inputPeopleId" placeholder="Nhập hoặc chọn mã nhân viên"
+                                                         value="#{registerFaceController.code}" autofocus="true"/>
+                                            <p:commandButton styleClass="btn btn-default" id="peopleBtn"
+                                                             icon="pi pi-search"
+                                                             update="tbPeople" process="@this inputPeopleId"
+                                                             actionListener="#{registerFaceController.getPeopleListByPeopleId}"/>
+                                        </div>
+                                        <p:dialog header="Thông tin tìm kiếm" minHeight="500" width="700"
+                                                  showEffect="fade" widgetVar="peoplePicker">
+                                            <p:dataTable id="tbPeople" var="item"
+                                                         value="#{registerFaceController.peopleList}"
+                                                         scrollable="true" scrollHeight="500" selectionMode="single"
+                                                         selection="#{registerFaceController.peopleSelected}"
+                                                         rowKey="#{item.peopleId}">
+                                                <p:ajax event="rowSelect"
+                                                        listener="#{registerFaceController.onRowSelect}"
+                                                        update="@form"/>
+
+                                                <p:column headerText="Mã nhân viên">
+                                                    <h:outputText value="#{item.peopleId}"/>
+                                                </p:column>
+                                                <p:column headerText="Họ tên">
+                                                    <h:outputText value="#{item.fullName}"/>
+                                                </p:column>
+                                                <p:column headerText="Số điện thoại">
+                                                    <h:outputText value="#{item.mobilePhone}"/>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </p:dialog>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:outputLabel value="Họ và tên"/>
+                                        <div class="ui-inputgroup">
+                                            <p:inputText id="inputFullName" value="#{registerFaceController.fullName}"/>
+                                            <p:commandButton styleClass="btn btn-default" id="fullNameBtn"
+                                                             update="tbPeople" process="@this inputFullName"
+                                                             icon="pi pi-search"
+                                                             actionListener="#{registerFaceController.getPeopleListByFullName}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:outputLabel value="Số điện thoại"/>
+                                        <div class="ui-inputgroup">
+                                            <p:inputText id="inputMobilePhone"
+                                                         value="#{registerFaceController.mobilePhone}"/>
+                                            <p:commandButton styleClass="btn btn-default" id="mobilePhoneBtn"
+                                                             update="tbPeople" process="@this inputMobilePhone"
+                                                             icon="pi pi-search"
+                                                             actionListener="#{registerFaceController.getPeopleListByMobilePhone}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:outputLabel value="Ngày sinh"/>
+                                        <p:datePicker value="#{registerFaceController.birthday}" monthNavigator="true"
+                                                      yearNavigator="true" pattern="dd/MM/yyyy" yearRange="1930:2010"
+                                                      showIcon="true"/>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:outputLabel value="Giới tính"/>
+                                        <p:selectOneMenu id="gender" value="#{registerFaceController.gender}">
+                                            <f:selectItem itemLabel="Chọn giới tính" itemValue=""/>
+                                            <f:selectItem itemLabel="Nam" itemValue="Nam"/>
+                                            <f:selectItem itemLabel="Nữ" itemValue="Nữ"/>
+                                            <f:selectItem itemLabel="Không xác định" itemValue="Không xác định"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <p:outputLabel value="Phân loại"/>
+                                <p:selectOneMenu value="#{registerFaceController.customerTypeSelected}">
+                                    <f:selectItem itemLabel="Chọn phân loại" itemValue=""/>
+                                    <f:selectItems value="#{registerFaceController.customerTypeList}" var="item"
+                                                   itemLabel="#{item.customerTypeName}"
+                                                   itemValue="#{item.customerTypeId}"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <br/>
+                        <div align="center">
+                            <h:commandButton id="registerBtn" class="btn btn-success tt-btn-dang-ky" value="Đăng ký"
+                                             ajax="false" type="submit" process="@form" update="@form"
+                                             actionListener="#{registerFaceController.validate}"/>
+                        </div>
+
+                        <p:dialog widgetVar="confirmReg" width="500px" modal="true" header="Xác nhận khuôn mặt"
+                                  resizable="false">
+                            <p:commandButton value="Xác nhận" actionListener="#{registerFaceController.register()}"/>
+                            <p:commandButton value="Bỏ qua" onclick="PF('confirmReg').hide()"/>
+                        </p:dialog>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <p:tabView id="tab" activeIndex="#{registerFaceController.tabIndex}">
+                        <p:ajax event="tabChange" listener="#{registerFaceController.onTabChange}"/>
+                        <p:tab title="Chụp ảnh khuôn mặt">
+                            <h:inputHidden id="facesnapshot" value="#{registerFaceController.face}"/>
+                            <p:remoteCommand name="addFace" update="main:faces" process="@this facesnapshot"
+                                             action="#{registerFaceController.addFace}"/>
+                            <div id="cam"
+                                 style="height:335px; margin: 0 auto; border: 1px solid #ccc; border-radius: 10px; margin-bottom: 40px">
+                            </div>
+                            <div align="center" style="padding-top: 10px">
+                                <input id="snap" type="button" class="btn btn-success tt-btn-dang-ky" value="Chụp"/>
+                            </div>
+                        </p:tab>
+                        <p:tab title="Tải ảnh lên">
+                            <div class="form-group">
+                                <p:fileUpload id="Image" value="#{registerFaceController.fileUpload}" mode="advanced"
+                                              skinSimple="true" label="Chọn ảnh"/>
+                                <p:message for="Image"/>
+                            </div>
+                        </p:tab>
+                    </p:tabView>
+                    <p:outputPanel id="faces"
+                                   style="display:#{registerFaceController.faces.size() gt 0 ?'block':'none'}">
+                        <div style="padding-top: 20px">
+                            <span><b>Ảnh đã chụp</b></span>
+                        </div>
+                        <div style="margin-top: 5px; padding: 5px; border: 1px solid #ccc">
+                            <ui:repeat var="f" value="#{registerFaceController.faces}" varStatus="i">
+                                <div style="display: inline-block; margin: 5px 0; position: relative;">
+                                    <img src="data:image/jpeg;base64,#{f.get(0)}" style="width: 100px" alt=""/>
+                                    <p:commandLink styleClass="close-face" process="@this" update="main:faces" value="X"
+                                                   actionListener="#{registerFaceController.removeFace(i.index)}"/>
+                                </div>
+                            </ui:repeat>
+                        </div>
+                    </p:outputPanel>
+                </div>
+            </div>
+        </h:form>
+    </div>
+</h:body>
+</html>

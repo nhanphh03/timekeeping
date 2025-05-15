@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+.tableUpdated {
+    width: 90% !important;
+    margin: 17px 58px 0 !important;
+}
+
+.btnSpace {
+    margin: 10px 10px 0px 10px;
+}
+
+h3 {
+    margin: 17px;
+}
+
+p {
+    font-size: 20px;
+}
+
+body {
+    font-family: "Noto Sans", serif !important;
+    padding: 0px 30px 30px 30px;
+}
+
+.field_message {
+    font-size: 13px !important;
+}
+
+.close-face {
+    position: absolute;
+    right: 2px;
+    color: red;
+}
+
+.close-face:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.layout_custom {
+    border: 1px solid #dee2e6;
+    margin-top: 10px;
+    padding: 0px;
+}
+
+.tbl_custom_bt {
+    border-top: 1px solid #dee2e6;
+}
+.tbl_custom_bt2 {
+    border-top: 1px solid #dee2e6;
+}
+
+.tbl_custom_4b {
+    border: 1px solid #dee2e6;
+}
+
+.tbl_custom_center {
+	border-top: 1px solid #dee2e6;
+	text-align: center;
+}
+
+.class_text_center {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+.class_com_pad5 {
+    padding: 5px !important;
+}
+
+.lpad10 {
+    padding-left: 10px !important;
+}
+
+.lable_margin-top_10 {
+    margin-top: 8px;
+}
+
+.dlg_custom .ui-dialog-titlebar {
+    padding: 8px !important;
+    font-size: 18px;
+}
+
+.dlg_custom .ui-dialog-content {
+    padding: 8px !important;
+}
+
+.ui-password {
+    width: 100%;
+}
+
+.dFrom input {
+    width: 120px !important;
+}
+
+.dTo input {
+    width: 120px !important;
+}
+
+.dFrom2 input {
+    width: 100px !important;
+}
+
+.dTo2 input {
+    width: 100px !important;
+}
+
+.tbl_custom_bt .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-check {
+    margin-top: -10px;
+}
+
+.tbl_custom_bt2 .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-check {
+    margin-top: -10px;
+}
+
+.tbl_custom_bt .ui-state-default {
+    text-align: center;
+}
+
+.tbl_custom_bt2 .ui-state-default {
+    text-align: left;
+}
+
+.tabReadOnly .ui-tabs-selected {
+    border-color: #dee2e6 !important;
+    color: #6c757d;
+}
+
+.tabReadOnly .ui-tabs-header a {
+    color: #6c757d !important;
+}
+
+
+.tbl_custom_nopad .ui-datatable-data > tr > td {
+    padding: 2px !important;
+
+}
+
+.tbl_custom_nopad th {
+    padding: 2px !important;
+    color: #697884;
+}
+
+.tbl_custom_nopad .ui-inputfield {
+    padding: 2px !important;
+
+}
+
+.tbl_custom_nopad input {
+    text-align: center;
+}
+
+.tbl_custom_nopad .ui-chkbox .ui-chkbox-box .ui-chkbox-icon.ui-icon-check {
+    margin-top: -10px;
+}
+
+.tbl_custom_nopad {
+    border: 1px solid #dee2e6;
+    border-bottom: 0px;
+}
+
+.break-word {
+    white-space: normal !important;
+}
+
+.custom_dp .p-datepicker input {
+    width: 100%;
+}
+
+.row_red {
+    color: #c82333 !important;
+}

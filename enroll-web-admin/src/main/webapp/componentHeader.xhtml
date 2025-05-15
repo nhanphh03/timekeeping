@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <div class="prt-header container">
+        <div class="row">
+            <div class="col-12" style="text-align: center;display: flex;align-items: center;justify-content: space-between;">
+                <div style="max-width: 297px; float: left;">
+                    <h:graphicImage library="images" width="100%" height="100%" name="PROTON.png" />
+                </div>
+                <h:form style="">
+                    <p:menubar style="padding-left: 10px;">
+                        <p:menuitem value="Trang chủ" url="listPeople.xhtml" />
+                        <p:menuitem value="Đăng ký" url="register-face.xhtml" />
+                        <p:menuitem value="Lịch sử ra - vào" url="historyCapturedImages.xhtml" />
+                        <p:menuitem value="Lịch sử chấm công" url="historySignedUp.xhtml" />
+                        <p:menuitem value="Danh sách nhân viên" url="listPeople.xhtml" />
+                        <p:menuitem value="Báo cáo chấm công" url="timekeeping.xhtml" />
+                    </p:menubar>
+                </h:form>
+                <div>
+                    <h:form>
+<!--                        <span>Welcome #{user.username}</span>-->
+                        <h:commandButton action="#{loginController.logout}" value="Logout"
+                                         class="btn btn-danger btnSpace" />
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .prt-header{
+            box-shadow: 0px 0px 32px -7px rgba(0,0,0,0.2);
+            background: #fff;
+            border-radius: 30px;
+            margin: 30px auto;
+            padding: 0 30px;
+        }
+        .prt-header .ui-menu{
+            border: 0px;
+        }
+        .prt-header .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active > .ui-menuitem-link{
+            background: linear-gradient(90deg, #003CB1 0%, #614B8C 95.18%);
+            border-radius: 30px;
+        }
+        .prt-header .ui-menu .ui-menu-list .ui-menuitem.ui-menuitem-active .ui-menuitem-text{
+            color: #fff !important;
+
+        }
+        .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link{
+            padding: 10px 12px 14px 12px !important;
+        }
+        .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text{
+            font-weight: 600;
+            color: #1d2124 !important;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+        .prt-header .btnSpace{
+            margin: 0;
+            border-radius: 50px;
+        }
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1400px;
+            }
+        }
+    </style>
+</ui:composition>
