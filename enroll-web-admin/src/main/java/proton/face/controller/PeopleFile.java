@@ -9,11 +9,10 @@ import proton.face.constant.StatusConstant;
 import proton.face.entity.CustomerType;
 import proton.face.entity.Groups;
 import proton.face.entity.People;
-import proton.face.entity.User;
 import proton.face.repository.CustomerTypeRepository;
 import proton.face.repository.GroupRepository;
 import proton.face.repository.PeopleRepository;
-import proton.face.response.DataResponseFromRegisterFaceSearch;
+import proton.face.dto.response.DataResponseFromRegisterFaceSearch;
 import proton.face.util.HttpUtils;
 
 import javax.faces.application.FacesMessage;

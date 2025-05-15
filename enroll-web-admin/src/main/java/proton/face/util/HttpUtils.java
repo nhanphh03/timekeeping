@@ -23,9 +23,9 @@ import org.primefaces.model.file.UploadedFile;
 
 import org.springframework.stereotype.Service;
 import proton.face.constant.StatusConstant;
-import proton.face.response.DataResponseFromCheckFacesSearch;
-import proton.face.response.DataResponseFromRegisterFaceSearch;
-import proton.face.response.DataResponseFromRemoveFacesSearch;
+import proton.face.dto.response.DataResponseFromCheckFacesSearch;
+import proton.face.dto.response.DataResponseFromRegisterFaceSearch;
+import proton.face.dto.response.DataResponseFromRemoveFacesSearch;
 
 import java.io.IOException;
 import java.io.InputStream;
