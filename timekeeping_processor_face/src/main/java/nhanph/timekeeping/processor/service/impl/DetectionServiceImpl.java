@@ -101,6 +101,6 @@ public class DetectionServiceImpl implements DetectionService {
             item.setTimeIn(item.getTimeIn().split(" ")[1]);
             item.setTimeOut(item.getTimeOut().split(" ")[1]);
         }
-        item.setImageSrc(Constants.serviceMinio.urlMinio + item.getImageSrc());
+        item.setImageSrc(Constants.MINIO_SERVICE.urlMinio + item.getImageSrc());
     }
 }
