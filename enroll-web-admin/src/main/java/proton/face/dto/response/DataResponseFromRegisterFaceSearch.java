@@ -1,4 +1,4 @@
-package proton.face.response;
+package proton.face.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
