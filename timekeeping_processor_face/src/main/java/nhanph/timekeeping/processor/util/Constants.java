@@ -20,7 +20,7 @@ public class Constants {
     @Value("${services.minio_service}")
     private String minioService;
 
-    public static class serviceFace {
+    public static class FACE_SERVICE {
         public static String urlFace;
         public static String search = "/search";
         public static final String registerFace = "/register-face";
@@ -34,8 +34,8 @@ public class Constants {
 
     @PostConstruct
     public void init() {
-        serviceFace.urlFace = faceService;
-        serviceMinio.urlMinio = minioService;
+        FACE_SERVICE.urlFace = faceService;
+        MINIO_SERVICE.urlMinio = minioService;
     }
 
     public static final String DATA_SOURCE = "timekeeping_face";
@@ -50,7 +50,7 @@ public class Constants {
     public static final String DESC_INSUFFICIENT = "Insufficient";
     public static final String DESC_DONE = "Done";
 
-    public static class serviceMinio {
+    public static class MINIO_SERVICE {
         public static String urlMinio;
         public static String GET = "/";
         public static String UPLOAD = "/upload";

@@ -16,11 +16,12 @@ import java.io.IOException;
 public class AuthorizationFilter implements Filter {
 
 	public AuthorizationFilter() {
+		// TODO document why this constructor is empty
 	}
 
 	@Override
 	public void init(FilterConfig filterConfig) {
-
+		// TODO document why this method is empty
 	}
 
 	@Override

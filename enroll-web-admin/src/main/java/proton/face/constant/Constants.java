@@ -8,7 +8,7 @@ public class Constants {
 	public static final String URL_FACE_REGISTER = ConfProperties.getProperty("url.register.face.prt");
 	public static final String URL_FACE_SEARCH = ConfProperties.getProperty("url.search.face.prt");
 	public static final String IMAGE_PATH = "/home/dell/quyennb/KVCProduct/image_face/";
-	public static final String SOURCE = "nhanphh2003";
+	public static final String SOURCE = "timekeeping_face";
 	public static final String URL_IMAGE = ConfProperties.getProperty("service.get.url")	;
 	public static final String EXCEL_TEMPLATE_PATH = ConfProperties.getProperty("excel_template_path.prt");
 
