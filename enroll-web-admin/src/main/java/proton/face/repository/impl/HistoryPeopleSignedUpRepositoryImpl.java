@@ -10,13 +10,8 @@ import proton.face.constant.StatusConstant;
 import proton.face.entity.Detection;
 import proton.face.entity.People;
 import proton.face.repository.HistoryPeopleSignedUpRepository;
-import proton.face.response.DataResponseFromRegisterFaceSearch;
-import proton.face.response.DataResponseFromRemoveFacesSearch;
-import proton.face.util.HttpUtils;
 import proton.face.util.Utils;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import java.util.List;
 
 @Repository
