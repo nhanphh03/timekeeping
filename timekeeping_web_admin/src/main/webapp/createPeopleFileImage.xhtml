@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="app.css" />
+	<title>Sign up</title>
+	<style type="text/css">
+form {
+	padding-top: 15px;
+	padding-left: 25px;
+}
+</style>
+</h:head>
+<h:body>
+	<ui:include src="componentHeader.xhtml"></ui:include>
+	<div class="container">
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-6">
+				<h2>Đăng kí</h2>
+				<hr style="border-top: 2px solid black;" />
+				<h:form enctype="multipart/form-data">
+
+					<p:messages id="messages" showDetail="true" closable="true">
+						<p:autoUpdate />
+					</p:messages>
+
+					<div class="ui-fluid">
+						<div class="p-field">
+							<p:outputLabel value="Khu vực *" />
+							<p:selectOneMenu value="#{peopleFile.zoneSelected}">
+								<f:selectItem itemLabel="Chọn khu vực" itemValue="" />
+								<f:selectItems value="#{peopleFile.zone}" var="item" itemLabel="#{item.groupName}" itemValue="#{item.groupId}"/>
+							</p:selectOneMenu>
+						</div>
+						<div class="p-field">
+							<p:outputLabel value="Mã cá nhân " />
+				            <p:selectOneMenu id="peopleIdStr" value="#{peopleFile.peopleSelected}" panelStyle="width:180px" effect="fade" filter="true" filterMatchMode="contains">
+				            	<f:selectItem itemLabel="Chọn mã cá nhân" itemValue="" />
+			                    <f:selectItems value="#{peopleFile.peopleList}" var="item" 
+			                    itemLabel="#{item.peopleIdStr} - #{item.fullName} #{item.mobilePhone == null ? '' : - item.mobilePhone}" itemValue="#{item.peopleIdStr}"/>
+			                    <p:ajax update="@form" process="peopleIdStr" event="itemSelect" listener="#{peopleFile.onItemSelectedListener}"/>
+			                </p:selectOneMenu>
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="FullName" value="Họ và tên " />
+							<p:inputText id="FullName" value="#{peopleFile.fullName}" required="true" />
+							<p:message for="FullName" />
+						</div>
+						<div class="p-field">
+							<p:outputLabel value="Số điện thoại " />
+							<p:inputText value="#{peopleFile.mobilePhone}"/>
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="Date" value="Ngày sinh " />
+							<p:inputText id="Date" value="#{peopleFile.dateOfBirth}" required="true" />
+							<p:watermark for="Date" value="Ex: 2000-07-26" id="watermark" />
+						</div>
+						<div class="p-field">
+							<p:outputLabel for="Image" value="Ảnh: " />
+							<p:fileUpload id="Image" value="#{peopleFile.imagePath}" mode="simple" required="true" />
+							<p:message for="Image" />
+						</div>
+						<div class="p-field">
+							<p:outputLabel value="Gender" />
+							<p:selectOneMenu id="gender" value="#{peopleFile.gender}">
+								<f:selectItem itemLabel="Nam" itemValue="Nam" />
+								<f:selectItem itemLabel="Nữ" itemValue="Nữ" />
+								<f:selectItem itemLabel="Không xác định" itemValue="Không xác định" />
+							</p:selectOneMenu>
+						</div>
+						<div class="p-field">
+							<p:outputLabel value="Phân loại" />
+							<p:selectOneMenu value="#{peopleFile.customerTypeSelected}">
+								<f:selectItems value="#{peopleFile.customerTypeList}" var="item" itemLabel="#{item.customerTypeName}" itemValue="#{item.customerTypeId}"/>
+							</p:selectOneMenu>
+						</div>
+					</div>
+					<br />
+					<div align="center">
+						<h:commandButton value="Save" ajax="false" actionListener="#{peopleFile.upload(peopleFile, people)}" />
+					</div>
+				</h:form>
+			</div>
+			<div class="col"></div>
+		</div>
+	</div>
+</h:body>
+</html>
