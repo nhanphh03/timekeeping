@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8" name="viewport"
+          content="width=device-width, initial-scale=1"
+          http-equiv="X-UA-Conpatible"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="app.css"/>
+    <script name="jquery/jquery.js" library="primefaces"></script>
+    <title>History</title>
+    <style type="text/css">
+        .false {
+            background-color: #dc3545 !important;
+            background-image: none !important;
+            color: black !important;
+        }
+
+        .suspicious {
+            background-color: #ffc107 !important;
+            background-image: none !important;
+            color: black !important;
+        }
+
+        .link a {
+            text-decoration: none
+        }
+
+        .prt-luchsu h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 0 !important;
+        }
+
+        .prt-luchsu-form {
+            background: #f1f1f1;
+            border-radius: 10px;
+            margin: 30px auto;
+            padding: 15px 30px;
+        }
+
+        .prt-luchsu-form .input-group {
+            margin-bottom: 0 !important;
+            gap: 15px;
+            justify-content: end;
+        }
+
+        .prt-luchsu-form .input-group-prepend {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .prt-luchsu-form input {
+            border-radius: 30px;
+            height: 36px;
+            padding: 0 20px;
+        }
+
+        .prt-luchsu-form .ui-selectonemenu {
+            border-radius: 30px;
+            height: 36px;
+            padding: 0 20px;
+        }
+
+        .prt-luchsu-form .ui-selectonemenu-label {
+            padding: 4px;
+        }
+
+        .prt-luchsu-form .ui-icon {
+            font-size: 14px;
+        }
+
+        .tt-btn-dang-ky {
+            border-radius: 25px;
+            background-color: #000000;
+            border-color: #000000;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        .ui-paginator.ui-paginator-top {
+            display: none;
+        }
+
+        .ui-datatable-tablewrapper thead {
+
+        }
+
+        .ui-datatable-tablewrapper thead th {
+            background: #f1f1f1 !important;
+            border: 0 !important;
+            padding: 20px !important;
+        }
+
+        .ui-datatable-tablewrapper thead th:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .ui-datatable-tablewrapper thead th:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .ui-datatable-tablewrapper thead tr {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .ui-datatable .ui-datatable-data > tr > td {
+            border: none !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+            color: #7b7b7b !important;
+            padding: 10px 0 !important;
+            font-size: 14px;
+        }
+
+        .prt-image {
+            border-radius: 50%;
+        }
+
+        .ui-datatable .ui-paginator.ui-paginator-bottom {
+            border: none;
+        }
+    </style>
+</h:head>
+<h:body>
+    <ui:include src="componentHeader.xhtml"></ui:include>
+    <div class="prt-luchsu">
+        <div class="container-fluid">
+            <h:form>
+                <p:growl id="growl_msg" showDetail="true"/>
+                <div class="container prt-luchsu-form">
+                    <div class="row" style="align-items: center">
+                        <div class="col-sm-3">
+                            <h2>Lịch sử chấm công</h2>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <p:inputText id="peopleIdSearch" value="#{historySignedUpController.peopleIdSearch}"
+                                                 style="width:10rem" placeholder="Mã nhân viên"/>
+                                    <p:selectOneMenu id="statusSearch"
+                                                     value="#{historySignedUpController.statusSearch}">
+                                        <f:selectItem itemLabel="Chọn trạng thái" itemValue=""/>
+                                        <f:selectItem itemLabel="Bình thường" itemValue="TRUE"/>
+                                        <f:selectItem itemLabel="Nghi ngờ" itemValue="SUSP"/>
+                                        <f:selectItem itemLabel="Không thành công" itemValue="FALSE"/>
+                                        <f:selectItem itemLabel="Lỗi" itemValue="ERROR"/>
+                                    </p:selectOneMenu>
+                                    <p:calendar id="fromDate" value="#{historySignedUpController.fromDate}"
+                                                pattern="dd/MM/yyyy" mask="true" placeholder="Từ ngày">
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                                    </p:calendar>
+                                    <p:calendar id="toDate" value="#{historySignedUpController.toDate}"
+                                                pattern="dd/MM/yyyy" mask="true" placeholder="Đến ngày">
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                                    </p:calendar>
+                                </div>
+                                <h:commandButton update="historyPeopleDetection"
+                                                 process="@this peopleIdSearch statusSearch fromDate toDate"
+                                                 actionListener="#{historySignedUpController.searchDetectionList}"
+                                                 value="Tìm kiếm" class="btn btn-secondary"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+
+            <h:form>
+                <p:dataTable id="historyPeopleDetection" var="item"
+                             value="#{historySignedUpController.detectionList}"
+                             rowIndexVar="rowIndex" paginator="true" rows="10"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,20,50,100" widgetVar="50"
+                             rowStyleClass="#{item.livenessStatus eq 'SUSP' ? 'suspicious' :
+									 item.livenessStatus eq 'FALSE' ? 'false' : null}"
+                             tableStyle="table-layout:auto">
+
+                    <p:column headerText="STT">
+                        #{rowIndex+1}
+                    </p:column>
+
+                    <p:column headerText="Mã NV">
+                        <h:outputText value="#{item.peopleId}"/>
+                    </p:column>
+
+                    <p:column headerText="Ảnh">
+                        <p:graphicImage id="image" class="prt-image" value="#{item.capturedImagePath}"
+                                        width="40px" height="40px"/>
+                        <p:tooltip id="toolTipContent" for="image" position="bottom">
+                            <p:graphicImage value="#{detection.capturedImagePath}"/>
+                        </p:tooltip>
+                    </p:column>
+
+                    <p:column headerText="Họ và tên">
+                        <h:outputText value="#{item.fullNameMarkV2}"/>
+                    </p:column>
+
+                    <p:column headerText="Giới tính">
+                        <h:outputText value="#{item.gender}"/>
+                    </p:column>
+
+                    <p:column headerText="Phòng ban">
+                        <h:outputText value="#{item.groupName}"/>
+                    </p:column>
+
+                    <p:column headerText="Phân loại">
+                        <h:outputText value="#{item.customerType}"/>
+                    </p:column>
+
+                    <p:column headerText="Giờ ghi nhận">
+                        <h:outputText value="#{item.createdTime}"/>
+                    </p:column>
+
+                    <p:column headerText="Giờ sáng">
+                        <h:outputText value="#{item.dayFirstTime}"/>
+                    </p:column>
+
+                    <!--					<p:column headerText="Giờ trưa">-->
+                    <!--						<h:outputText value="#{item.dayNoonTime}" />-->
+                    <!--					</p:column>-->
+
+                    <p:column headerText="Khu vực">
+                        <h:outputText value="#{item.cameraName}"/>
+                    </p:column>
+
+                    <p:column headerText="Hành động">
+                        <div class="link" style="text-align: center">
+                            <p:commandButton icon="pi pi-pencil" outcome="updatePeopleSignedUp"
+                                             style="border: 2px solid #316FD3;border-radius: 50%;background: transparent;color: #316FD3;    width: 30px;height: 30px;"
+                                             action="#{historySignedUpController.getPeopleSignedUp(item.id)}"
+                                             update="@([id$=growl_msg])"
+                            />
+                        </div>
+                    </p:column>
+
+                </p:dataTable>
+                <p:poll interval="5" listener="#{historySignedUpController.searchDetectionList()}"
+                        update="historyPeopleDetection"/>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+</html>

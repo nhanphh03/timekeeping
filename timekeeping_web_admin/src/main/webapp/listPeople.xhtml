@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8" name="viewport"
+          content="width=device-width, initial-scale=1"
+          http-equiv="X-UA-Conpatible"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="app.css"/>
+    <script name="jquery/jquery.js" library="primefaces">
+    </script>
+    <title>Danh sách nhân viên</title>
+    <style type="text/css">
+    </style>
+    <style type="text/css">
+        .false {
+            background-color: #dc3545 !important;
+            background-image: none !important;
+            color: black !important;
+        }
+
+        .suspicious {
+            background-color: #ffc107 !important;
+            background-image: none !important;
+            color: black !important;
+        }
+
+        .link a {
+            text-decoration: none
+        }
+
+        .prt-luchsu h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 0 !important;
+        }
+
+        .prt-luchsu-form {
+            background: #f1f1f1;
+            border-radius: 10px;
+            margin: 30px auto;
+            padding: 15px 30px;
+        }
+
+        .prt-luchsu-form .input-group {
+            margin-bottom: 0 !important;
+            gap: 15px;
+            justify-content: end;
+        }
+
+        .prt-luchsu-form .input-group-prepend {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .prt-luchsu-form input {
+            border-radius: 30px;
+            height: 36px;
+            padding: 0 20px;
+        }
+
+        .prt-luchsu-form .ui-selectonemenu {
+            border-radius: 30px;
+            height: 36px;
+            padding: 0 20px;
+        }
+
+        .prt-luchsu-form .ui-selectonemenu-label {
+            padding: 4px;
+        }
+
+        .prt-luchsu-form .ui-icon {
+            font-size: 14px;
+        }
+
+        .tt-btn-dang-ky {
+            border-radius: 25px;
+            background-color: #000000;
+            border-color: #000000;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        .ui-paginator.ui-paginator-top {
+            display: none;
+        }
+
+        .ui-datatable-tablewrapper thead {
+
+        }
+
+        .ui-datatable-tablewrapper thead th {
+            background: #f1f1f1 !important;
+            border: 0 !important;
+            padding: 20px !important;
+        }
+
+        .ui-datatable-tablewrapper thead th:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .ui-datatable-tablewrapper thead th:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .ui-datatable-tablewrapper thead tr {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .ui-datatable .ui-datatable-data > tr > td {
+            border: none !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+            color: #7b7b7b !important;
+            padding: 10px 0 !important;
+            font-size: 14px;
+        }
+
+        .prt-image {
+            border-radius: 50%;
+        }
+
+        .ui-datatable .ui-paginator.ui-paginator-bottom {
+            border: none;
+        }
+
+        .prt-btn-dk {
+            border: 2px solid #31B98C !important;
+            border-radius: 50% !important;
+            background: transparent !important;
+            color: #31B98C !important;
+            width: 30px !important;
+            height: 30px !important;
+        }
+
+        .prt-btn-capnhat {
+            border: 2px solid #316FD3 !important;
+            border-radius: 50% !important;
+            background: transparent !important;
+            color: #316FD3 !important;
+            width: 30px !important;
+            height: 30px !important;
+        }
+    </style>
+</h:head>
+<h:body>
+    <ui:include src="componentHeader.xhtml"></ui:include>
+    <div class="prt-luchsu">
+        <div class="container-fluid">
+            <h:form>
+                <p:growl id="growl_msg" showDetail="true"/>
+                <div class="container prt-luchsu-form">
+                    <div class="row" style="align-items: center">
+                        <div class="col-sm-2">
+                            <h2>Danh sách nhân viên</h2>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <p:inputText id="peopleIdSearch" value="#{peopleController.peopleIdSearch}"
+                                                 placeholder="Mã nhân viên"/>
+                                    <p:inputText id="fullNameSearch" value="#{peopleController.fullNameSearch}"
+                                                 placeholder="Họ tên"/>
+                                    <p:inputText id="mobilePhoneSearch" value="#{peopleController.mobilePhoneSearch}"
+                                                 placeholder="Số điện thoại"/>
+                                </div>
+                                <h:commandButton update="listOfPeople"
+                                                 process="@this inputPeopleId fullNameSearch mobilePhoneSearch"
+                                                 actionListener="#{peopleController.searchPeople}" value="Tìm kiếm"
+                                                 class="btn btn-secondary"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" style="text-align: right">
+                            <h:commandButton action="register-face.xhtml?faces-redirect=true" value="Đăng ký mới"
+                                             class="btn btn-success"/>
+                        </div>
+                    </div>
+                </div>
+
+                <p:dataTable id="listOfPeople" var="peoplex"
+                             value="#{peopleController.peopleList}" rowIndexVar="rowIndex"
+                             paginator="true" rows="10"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,20,50,100" widgetVar="50"
+                             tableStyle="table-layout:auto">
+
+                    <p:column headerText="STT" style="text-align: center">
+                        #{rowIndex+1}
+                    </p:column>
+
+                    <p:column headerText="Mã NV">
+                        <h:outputText value="#{peoplex.peopleId}"/>
+                    </p:column>
+
+                    <p:column headerText="Ảnh">
+                        <p:graphicImage rendered="#{peoplex.imagePath != null}" id="image"
+                                        value="#{peoplex.imagePath}" width="40px"
+                                        height="40px" class="prt-image"/>
+
+                        <p:tooltip id="toolTipContent" for="image" position="bottom">
+                            <p:graphicImage value="#{peoplex.imagePath}"/>
+                        </p:tooltip>
+                    </p:column>
+
+                    <p:column headerText="Họ và tên">
+                        <h:outputText value="#{peoplex.fullName}"/>
+                    </p:column>
+
+                    <p:column headerText="Số điện thoại">
+                        <h:outputText value="#{peoplex.mobilePhone}"/>
+                    </p:column>
+
+                    <p:column headerText="Phân loại">
+                        <h:outputText value="#{peoplex.customerType}"/>
+                    </p:column>
+
+                    <p:column headerText="Giới tính">
+                        <h:outputText value="#{peoplex.gender}"/>
+                    </p:column>
+
+                    <p:column headerText="Ngày sinh">
+                        <h:outputText value="#{peoplex.dateOfBirth}">
+                            <f:convertDateTime pattern="yyyy-mm-dd"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Phòng ban">
+                        <h:outputText value="#{peoplex.groupName}"/>
+                    </p:column>
+
+                    <p:column headerText="Hành động" style="text-align: center">
+                        <p:commandButton action="#{peopleController.getPeople(peoplex)}"
+                                         icon="#{peoplex.status == 1 ? 'pi pi-pencil' : 'pi pi-user-plus'}"
+                                         styleClass="#{peoplex.status == 1 ? 'btn btn-primary prt-btn-capnhat' : 'btn btn-success prt-btn-dk'}"
+                                         update="@([id$=growl_msg])"
+                        />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+</html>
