@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta charset="utf-8" name="viewport"
+          content="width=device-width, initial-scale=1"
+          http-equiv="X-UA-Conpatible"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="app.css"/>
+    <title>#{peopleController.people.status == 1 ? 'Cập nhật' : 'Đăng ký'}</title>
+    <style>
+        .prt-dangky-form {
+            background: #f1f1f1;
+            margin-bottom: 0;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .prt-dangky h2 {
+            font-size: 17px;
+            color: #000000;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .prt-dangky label {
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .prt-dangky .form-group {
+            margin-bottom: 8px;
+        }
+
+        .prt-dangky .ui-tabs .ui-tabs-panels .ui-tabs-panel {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .prt-dangky .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
+            font-size: 10px;
+        }
+
+        .prt-dangky .ui-button.ui-button-icon-only .ui-icon {
+            font-size: 10px;
+        }
+
+        .prt-dangky input {
+            height: 37px;
+            border-color: #D2D4D7;
+            border-radius: 25px !important;
+            padding-left: 15px !important;
+        }
+
+        .prt-dangky .ui-inputgroup button {
+            border-top-right-radius: 25px !important;
+            border-bottom-right-radius: 25px !important;
+        }
+
+        .prt-dangky .ui-fluid .p-datepicker .ui-datepicker-trigger.ui-button {
+            border-top-right-radius: 25px !important;
+            border-bottom-right-radius: 25px !important;
+        }
+
+        .prt-dangky .ui-fluid .ui-calendar input {
+            border-radius: 25px !important;
+        }
+
+        .prt-dangky .ui-fluid .ui-inputgroup .ui-button-icon-only {
+            min-width: 2.5em;
+        }
+
+        .prt-dangky .ui-selectonemenu {
+            height: 37px;
+            border-color: #D2D4D7;
+            border-radius: 25px;
+            padding-left: 15px !important;
+        }
+
+        .prt-dangky .ui-inputgroup .ui-icon {
+            margin-top: 0 !important;
+            margin-left: 0 !important;
+            transform: translate(-50%, -50%) !important;
+        }
+
+        .prt-dangky .ui-button-text {
+
+        }
+
+        .prt-dangky .ui-button {
+            background-color: #000000;
+            border-color: #000000;
+        }
+
+        .tt-btn-dang-ky {
+            width: 100%;
+            border-radius: 25px;
+            background-color: #000000;
+            border-color: #000000;
+            text-transform: uppercase;
+        }
+
+        .prt-dangky .ui-tabs.ui-tabs-top > .ui-tabs-nav li.ui-tabs-header.ui-state-active {
+            background: #f1f1f1 !important;
+        }
+
+        .prt-dangky .ui-tabs.ui-tabs-top > .ui-tabs-nav li.ui-tabs-header.ui-state-active a {
+            color: #000;
+        }
+
+        .prt-dangky .ui-tabs .ui-tabs-nav li.ui-tabs-header.ui-state-hover {
+            background: transparent !important;
+        }
+
+        .prt-dangky .ui-tabs .ui-tabs-nav li.ui-tabs-header {
+            background: transparent !important;
+        }
+
+        .prt-dangky .ui-icon-plusthick {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -9px;
+            left: 0.5rem;
+            font-size: 12px;
+        }
+
+        .prt-image-dd {
+            border: 1px solid #aeaeae;
+            border-radius: 10px;
+        }
+    </style>
+</h:head>
+<h:body>
+    <ui:include src="componentHeader.xhtml"></ui:include>
+    <div class="container prt-dangky">
+        <h:form entctype="multipart/form-data">
+            <div class="row pt-3">
+                <div class="col-6">
+                    <div class="prt-dangky-form">
+                        <h2>#{peopleController.people.status == 1 ? 'Cập nhật' : 'Đăng ký'}</h2>
+                        <div class="ui-fluid">
+                            <div class="form-group">
+                                <p:messages id="msg" closable="true">
+                                    <p:autoUpdate/>
+                                </p:messages>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:outputLabel styleClass="input-label" value="Khu vực"/>
+                                        <p:selectOneMenu value="#{peopleController.zoneSelected}">
+                                            <f:selectItem itemLabel="Chọn khu vực" itemValue=""/>
+                                            <f:selectItems value="#{peopleController.zone}" var="item"
+                                                           itemLabel="#{item.groupName}"
+                                                           itemValue="#{item.groupId}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:outputLabel value="Mã nhân viên"/>
+                                        <p:inputText readonly="true" value="#{peopleController.people.peopleId}"/>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:outputLabel value="Họ và tên"/>
+                                        <p:inputText id="FullName" value="#{peopleController.people.fullName}"/>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:outputLabel value="Số điện thoại"/>
+                                        <p:inputText id="inputMobilePhone"
+                                                     value="#{peopleController.people.mobilePhone}"/>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:outputLabel value="Ngày sinh"/>
+                                        <!-- <p:inputText value="#{peopleController.people.dateOfBirth}" type="date"/> -->
+                                        <p:datePicker id="dtBirthday" value="#{peopleController.dateOfBirthSelected}"
+                                                      monthNavigator="true" yearRange="1930:2010" yearNavigator="true"
+                                                      pattern="dd/MM/yyyy" showIcon="true"/>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <p:outputLabel value="Giới tính"/>
+                                        <p:selectOneMenu id="gender" value="#{peopleController.people.gender}">
+                                            <f:selectItem itemLabel="Chọn giới tính" itemValue=""/>
+                                            <f:selectItem itemLabel="Nam" itemValue="Nam"/>
+                                            <f:selectItem itemLabel="Nữ" itemValue="Nữ"/>
+                                            <f:selectItem itemLabel="Không xác định" itemValue="Không xác định"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p:outputLabel value="Phân loại"/>
+                                <p:selectOneMenu value="#{peopleController.customerTypeSelected}">
+                                    <f:selectItem itemLabel="Chọn phân loại" itemValue=""/>
+                                    <f:selectItems value="#{peopleController.customerTypeList}" var="item"
+                                                   itemLabel="#{item.customerTypeName}"
+                                                   itemValue="#{item.customerTypeId}"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <br/>
+                        <div align="center">
+                            <h:commandButton value="#{peopleController.people.status == 1 ? 'Cập nhật' : 'Đăng ký'}"
+                                             styleClass="#{peopleController.people.status == 1 ? 'btn btn-primary tt-btn-dang-ky' : 'btn btn-success tt-btn-dang-ky'}"
+                                             ajax="false"
+                                             action="#{peopleController.updatePeople}"/>
+                            <h:outputLink id="fade" value="#">
+                            </h:outputLink>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <p:graphicImage id="image"
+                                    value="https://s3.protontech.vn/face-enroll-proton/#{peopleController.people.getImagePathNoHostV2()}"
+                                    width="100%" height="466px" class="prt-image-dd"/>
+                    <p:tooltip id="toolTipContent" for="image" position="bottom">
+                        <p:graphicImage
+                                value="https://s3.protontech.vn/face-enroll-proton/#{peopleController.people.getImagePathNoHostV2()}"
+                                width="250px" height="250px"/>
+                    </p:tooltip>
+                    <div style="width: 300px; display: none">
+                        <p:dataTable var="item" value="#{peopleController.imageList}" selectionMode="single"
+                                     selection="#{item}" rowKey="#{item}">
+                            <p:ajax event="rowSelect" listener="#{peopleController.onRowSelect}"/>
+                            <p:column headerText="5 Lần chấm công gần nhất">
+                                <p:graphicImage id="image" value="https://s3.protontech.vn/face-enroll-proton/#{item}"
+                                                width="70px" height="70px"/>
+                                <p:tooltip id="toolTipContent" for="image" position="bottom">
+                                    <p:graphicImage value="https://s3.protontech.vn/face-enroll-proton/#{item}"
+                                                    width="250px" height="250px"/>
+                                </p:tooltip>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </div>
+</h:body>
+</html>
