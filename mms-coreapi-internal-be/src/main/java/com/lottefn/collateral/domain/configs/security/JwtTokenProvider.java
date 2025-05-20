@@ -1,10 +1,12 @@
 package com.lottefn.collateral.domain.configs.security;
 
+import com.lottefn.collateral.app.responses.RoleResponse;
 import com.lottefn.collateral.domain.entities.Role;
 import com.lottefn.collateral.domain.entities.User;
 import com.lottefn.collateral.domain.entities.data.CustomUserDetails;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +18,11 @@ import org.springframework.util.StringUtils;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static com.lottefn.collateral.domain.utils.Constants.COOKIE_KEY;
 
 @Component
 @Slf4j
@@ -102,7 +108,20 @@ public class JwtTokenProvider {
         mClaims.put("email", user.getEmail());
         mClaims.put("name", user.getName());
         mClaims.put("username", user.getUsername());
-        mClaims.put("role", user.getRole());
+
+        Role role = user.getRole();
+        Map<String, Object> roleMap = new HashMap<>();
+        roleMap.put("name", role.getName());
+
+        List<Map<String, String>> permissionList = role.getPermissions().stream()
+                .map(permission -> Map.of(
+                        "menu", permission.getMenu().getCode(),
+                        "method", permission.getMethod().getName()
+                ))
+                .collect(Collectors.toList());
+
+        roleMap.put("permissions", permissionList);
+        mClaims.put("role", roleMap);
         return mClaims;
     }
 
@@ -121,6 +140,18 @@ public class JwtTokenProvider {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
+        }
+        return null;
+    }
+
+    public String extractTokenFromCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (COOKIE_KEY.equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
         }
         return null;
     }

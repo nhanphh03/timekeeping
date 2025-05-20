@@ -4,7 +4,6 @@ import com.lottefn.collateral.domain.entities.User;
 import com.lottefn.collateral.domain.entities.data.CustomUserDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +19,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Optional;
 
-import static com.lottefn.collateral.domain.utils.Constants.COOKIE_KEY;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenProvider tokenProvider;
-
-    private final CustomUserDetailService customUserDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -58,20 +53,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    public String extractTokenFromCookie(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (COOKIE_KEY.equals(cookie.getName())) {
-                    return cookie.getValue();
-                }
-            }
-        }
-        return null;
-    }
+
 
     private String resolveToken(HttpServletRequest request) {
-        return Optional.ofNullable(extractTokenFromCookie(request))
+        return Optional.ofNullable(tokenProvider.extractTokenFromCookie(request))
                 .filter(token -> !token.isBlank())
                 .or(() -> Optional.ofNullable(tokenProvider.getJwtFromRequest(request)))
                 .orElse(null);

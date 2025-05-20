@@ -21,7 +21,7 @@ public class WebSecurityConfig{
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    private final AuthorizedAuthenticationFilter authorizedAuthenticationFilter;
+    private final CustomAuthorizationManager authorizationManager;
 
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
@@ -44,13 +44,12 @@ public class WebSecurityConfig{
                 .authorizeHttpRequests(requests ->
                 requests.requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/logout",
                         "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/healthy").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().access(authorizationManager)
         ).exceptionHandling(exception -> exception
                 .authenticationEntryPoint(customAuthenticationEntryPoint)
                 .accessDeniedHandler(customAccessDeniedHandler)
         );
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        http.addFilterAfter(authorizedAuthenticationFilter, JwtAuthenticationFilter.class);
         return http.build();
     }
 

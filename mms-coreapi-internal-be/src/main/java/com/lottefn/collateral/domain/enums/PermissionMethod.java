@@ -6,7 +6,7 @@ import lombok.Getter;
 import org.springframework.http.HttpMethod;
 
 @Getter
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+//@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum PermissionMethod {
     LIST("LIST", HttpMethod.GET, ""),
     CREATE("CREATE", HttpMethod.POST, ""),
@@ -14,13 +14,13 @@ public enum PermissionMethod {
     DELETE("DELETE", HttpMethod.DELETE, "")
     ;
 
-    @JsonProperty
+//    @JsonProperty
     private final String name;
 
-    @JsonProperty
+//    @JsonProperty
     private final HttpMethod method;
 
-    @JsonProperty
+//    @JsonProperty
     private final String path;
 
     PermissionMethod(String name, HttpMethod method, String path) {

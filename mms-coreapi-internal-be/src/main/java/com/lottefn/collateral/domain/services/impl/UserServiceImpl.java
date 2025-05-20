@@ -11,8 +11,10 @@ import com.lottefn.collateral.domain.configs.security.JwtTokenProvider;
 import com.lottefn.collateral.domain.entities.Role;
 import com.lottefn.collateral.domain.entities.User;
 import com.lottefn.collateral.domain.entities.data.CustomUserDetails;
+import com.lottefn.collateral.domain.enums.SystemRole;
 import com.lottefn.collateral.domain.exceptions.BusinessException;
 import com.lottefn.collateral.domain.exceptions.ErrorMessage;
+import com.lottefn.collateral.domain.repositories.PermissionRepository;
 import com.lottefn.collateral.domain.repositories.RoleRepository;
 import com.lottefn.collateral.domain.repositories.UserRepository;
 import com.lottefn.collateral.domain.services.BaseAbtractService;
@@ -39,6 +41,8 @@ public class UserServiceImpl extends BaseAbtractService implements UserService {
     private final UserRepository userRepository;
 
     private final RoleRepository roleRepository;
+
+    private final PermissionRepository permissionRepository;
 
     private final PasswordEncoder encoder;
 
@@ -67,7 +71,14 @@ public class UserServiceImpl extends BaseAbtractService implements UserService {
 
     @Override
     public UserInfoResponse getUserInfo(CustomUserDetails userDetails) {
-        return modelMapper.map(userDetails.getUser(), UserInfoResponse.class);
+        User user = userDetails.getUser();
+        if (SystemRole.ADMIN.equals(user.getRole().getName())){
+            Role role = new Role();
+            role.setName(SystemRole.ADMIN);
+            role.setPermissions(permissionRepository.findAll());
+            user.setRole(role);
+        }
+        return modelMapper.map(user, UserInfoResponse.class);
     }
 
     @Override
