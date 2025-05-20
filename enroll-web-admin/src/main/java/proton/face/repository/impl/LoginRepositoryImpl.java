@@ -19,10 +19,10 @@ public class LoginRepositoryImpl implements LoginRepository {
 
     @Override
     public User validate(String username, String password) {
-        String sql = "select u.id, u.username , u.password, r.id  "
-                + " from users u inner join user_role ur on u.id = ur.user_id "
-                + "			 	inner join roles r on ur.role_id  = r.id "
-                + " where username = :username and password = :password";
+        String sql = "select u.id, u.username, u.password\n" +
+                "from users u\n" +
+                "where username = :username\n" +
+                "  and password = :password";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("username", username);
         params.addValue("password", password);
@@ -30,11 +30,9 @@ public class LoginRepositoryImpl implements LoginRepository {
         try {
             return jdbcTemplate.queryForObject(sql, params, (rs, rowNum) -> {
                 User user = new User();
-                Role role = findById(rs.getInt("r.id"));
                 user.setId(rs.getInt("u.id"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
-                user.setRole(role);
                 return user;
             });
         } catch (EmptyResultDataAccessException e) {
@@ -42,20 +40,4 @@ public class LoginRepositoryImpl implements LoginRepository {
         }
     }
 
-    @Override
-    public Role findById(int id) {
-        String sql = "select * from roles where id = :id";
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", id);
-        try {
-            return jdbcTemplate.queryForObject(sql, params, (rs, rowNum) -> {
-                Role role = new Role();
-                role.setId(rs.getInt("id"));
-                role.setName(rs.getString("name"));
-                return role;
-            });
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
 }

@@ -41,43 +41,39 @@ public class PeopleRepositoryImpl implements PeopleRepository {
     @Override
     public List<People> getListPeople() {
 
-        String sql = " SELECT  "
-                + "    p.id, "
-                + "    people_id, "
-                + "    CONCAT('" + Constants.URL_IMAGE + "',image_path) AS url, "
-                + "    full_name, "
-                + "    ct.name, "
-                + "    Gender, "
-                + "    date_of_birth, "
-                + "    Last_checkin_time, "
-                + "    g.group_name, "
-                + "    p.mobile_phone, "
-                + "    p.group_id, "
-                + "    p.customer_type, "
-                + "    p.status "
-                + "FROM "
-                + "    people p "
-                + "        INNER JOIN "
-                + "    customertype ct ON ct.id = p.customer_type "
-                + "        LEFT JOIN "
-                + "    `groups` g ON p.group_id = g.group_id "
-                + "    where p.status = 1 "
-                + "    order by p.status "
-                + "    limit 1000 ";
+        String sql = " SELECT p.id,\n" +
+                "       p.customer_code,\n" +
+                "       CONCAT('" + Constants.URL_IMAGE +
+                "', p.image_path) AS url,\n" +
+                "       p.full_name,\n" +
+                "       ct.name as type_name,\n" +
+                "       p.gender,\n" +
+                "       p.date_of_birth,\n" +
+                "       g.name as group_name,\n" +
+                "       p.mobile_phone,\n" +
+                "       p.group_id,\n" +
+                "       p.customer_type,\n" +
+                "       p.status\n" +
+                "FROM customer p\n" +
+                "        JOIN\n" +
+                "     customer_type ct ON ct.id = p.customer_type\n" +
+                "    JOIN\n" +
+                "     customer_group g ON p.group_id = g.id\n" +
+                "where p.status = 1\n" +
+                "order by p.status\n" +
+                "limit 1000 ";
 
         return jdbcTemplate.query(sql, new MapSqlParameterSource(), (rs, rowNum) -> {
             People people = new People();
             people.setId(rs.getLong("id"));
-            people.setPeopleId(rs.getString("people_id"));
+            people.setPeopleId(rs.getString("customer_code"));
             people.setImagePath(rs.getString("url"));
             people.setFullName(rs.getString("full_name"));
-            people.setCustomerType(rs.getString("name"));
-            people.setGender(rs.getString("Gender"));
+            people.setCustomerType(rs.getString("type_name"));
+            people.setGender(rs.getString("gender"));
             people.setDateOfBirth(rs.getString("date_of_birth"));
-            people.setLastCheckinTime(rs.getString("Last_checkin_time"));
             people.setGroupName(rs.getString("group_name"));
             people.setMobilePhone(rs.getString("mobile_phone"));
-            people.setGroupId(rs.getInt("group_id"));
             people.setCustomerTypeId(rs.getInt("customer_type"));
             people.setStatus(rs.getInt("status"));
             return people;
@@ -87,10 +83,10 @@ public class PeopleRepositoryImpl implements PeopleRepository {
 
     @Override
     public void updatePeople(People people, boolean registerFace) throws Exception {
-        String sql = " update people p set full_name = :full_name, date_of_birth = :date_of_birth," +
-                " customer_type = :customer_type, group_id = :group_id, mobile_phone = :mobile_phone," +
-                " gender = :gender, status = 1 " +
-                " where people_id = :people_id ";
+        String sql = " update customer p set full_name = :full_name, date_of_birth = :date_of_birth, \n" +
+                "                 customer_type = :customer_type, group_id = :group_id, mobile_phone = :mobile_phone, \n" +
+                "                 gender = :gender, status = 1  \n" +
+                "                 where customer_code = :people_id ";
 
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("people_id", people.getPeopleId());
@@ -106,7 +102,7 @@ public class PeopleRepositoryImpl implements PeopleRepository {
 
     @Override
     public boolean isExistPeople(String peopleId) {
-        String sql = "SELECT 1 FROM people WHERE people_id = :people_id and status = 1 ";
+        String sql = "SELECT 1 FROM customer WHERE customer_code = :people_id and status = 1 ";
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("people_id", peopleId);
         try {
@@ -118,7 +114,7 @@ public class PeopleRepositoryImpl implements PeopleRepository {
 
     @Override
     public void updateExistPeople(String peopleId) {
-        String sql = " UPDATE people SET status = 1 WHERE people_id = :people_id AND status = 2 ";
+        String sql = " UPDATE customer SET status = 1 WHERE customer_code = :people_id AND status = 2 ";
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("people_id", peopleId);
         jdbcTemplate.update(sql, parameters);
@@ -126,16 +122,16 @@ public class PeopleRepositoryImpl implements PeopleRepository {
 
     @Override
     public boolean registerPeople(People people) {
-        String sql = "insert into people (people_id, full_name, date_of_birth, customer_type," +
-                " group_id , image_path, mobile_phone, gender) " +
-                "values (:people_id, :full_name, :date_of_birth, :customer_type, :group_id, :image_path, :mobile_phone, :gender)"
-                + " on duplicate key update "
-                + " full_name=values(full_name),"
-                + " date_of_birth=values(date_of_birth),"
-                + " mobile_phone=values(mobile_phone),"
-                + " gender=values(gender),"
-                + " status=values(status),"
-                + " image_path=values(image_path)";
+        String sql = "insert into customer (customer_code, full_name, date_of_birth, customer_type,\n" +
+                "                      group_id, image_path, mobile_phone, gender)\n" +
+                "values (:people_id, :full_name, :date_of_birth, :customer_type, :group_id, :image_path, :mobile_phone, :gender)\n" +
+                "on duplicate key update full_name=values(full_name),\n" +
+                "                        date_of_birth=values(date_of_birth),\n" +
+                "                        mobile_phone=values(mobile_phone),\n" +
+                "                        gender=values(gender),\n" +
+                "                        status=values(status),\n" +
+                "                        image_path=values(image_path)";
+
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("people_id", people.getPeopleId());
         parameters.addValue("full_name", people.getFullName());
@@ -229,30 +225,25 @@ public class PeopleRepositoryImpl implements PeopleRepository {
     @Override
     public List<People> searchPeopleList(String peopleId, String fullName, String mobilePhone) {
 
-        String sql = " SELECT  "
-                + "    p.id, "
-                + "    people_id, "
+        String sql = " SELECT p.id,\n" +
+                "       p.customer_code, "
                 + "    CONCAT('" + Constants.URL_IMAGE + "',image_path) AS url, "
-                + "    full_name, "
-                + "    ct.name, "
-                + "    gender, "
-                + "    date_of_birth, "
-                + "    Last_checkin_time, "
-                + "    g.group_name, "
-                + "    p.mobile_phone, "
-                + "    p.group_id, "
-                + "    p.customer_type, "
-                + "    p.status "
-                + " FROM "
-                + "    people p "
-                + "        INNER JOIN "
-                + "    customertype ct ON ct.id = p.customer_type "
-                + "        LEFT JOIN "
-                + "    `groups` g ON p.group_id = g.group_id "
-                + "    where p.status = 1 ";
+                + "    full_name,\n" +
+                "       ct.name as customer_type,\n" +
+                "       gender,\n" +
+                "       date_of_birth,\n" +
+                "       g.name as group_name,\n" +
+                "       p.mobile_phone,\n" +
+                "       p.group_id,\n" +
+                "       p.customer_type,\n" +
+                "       p.status\n" +
+                " FROM customer p "
+                + "        INNER JOIN customer_type ct ON ct.id = p.customer_type\n" +
+                "         LEFT JOIN customer_group g ON p.group_id = g.id\n" +
+                "where p.status = 1 ";
 
         if (!StringUtils.isEmpty(peopleId)) {
-            sql += " and people_id = :people_id ";
+            sql += " and customer_code = :people_id ";
 
 
         }
@@ -274,17 +265,14 @@ public class PeopleRepositoryImpl implements PeopleRepository {
         return jdbcTemplate.query(sql, parameters, (rs, rowNum) -> {
             People people = new People();
             people.setId(rs.getLong("id"));
-            people.setPeopleId(rs.getString("people_id"));
+            people.setPeopleId(rs.getString("customer_code"));
             people.setImagePath(rs.getString("url"));
             people.setFullName(rs.getString("full_name"));
-            people.setCustomerType(rs.getString("name"));
+            people.setCustomerType(rs.getString("customer_type"));
             people.setGender(rs.getString("gender"));
             people.setDateOfBirth(rs.getString("date_of_birth"));
-            people.setLastCheckinTime(rs.getString("Last_checkin_time"));
             people.setGroupName(rs.getString("group_name"));
             people.setMobilePhone(rs.getString("mobile_phone"));
-            people.setGroupId(rs.getInt("group_id"));
-            people.setCustomerTypeId(rs.getInt("customer_type"));
             people.setStatus(rs.getInt("status"));
             return people;
         });
