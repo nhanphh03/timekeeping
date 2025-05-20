@@ -21,7 +21,7 @@ public class SearchFaceObject {
     private String id;
 
     @JsonProperty("people_id")
-    private Long peopleId;
+    private String peopleId;
 
     private String source;
 
