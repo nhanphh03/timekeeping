@@ -21,7 +21,7 @@ public class CustomerTypeRepositoryImpl implements CustomerTypeRepository {
 
 	public List<CustomerType> getCustomerTypeList() {
 		List<CustomerType> customerTypeList;
-			String sql = " SELECT id, name FROM customertype WHERE status = 1 ";
+			String sql = " SELECT id, name FROM customer_type WHERE status = 1 ";
 			customerTypeList = jdbcTemplate.query(sql, new MapSqlParameterSource(), (rs, i) ->{
 						CustomerType type = new CustomerType();
 						type.setCustomerTypeId(rs.getInt("id"));

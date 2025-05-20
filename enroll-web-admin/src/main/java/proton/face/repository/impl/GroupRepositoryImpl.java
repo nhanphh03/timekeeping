@@ -20,12 +20,12 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public List<Groups> getGroupList() {
-        String sql = " SELECT group_id, group_code, group_name FROM `groups` WHERE status = 1 ";
+        String sql = " SELECT id, code, name FROM customer_group WHERE status = 1 ";
         return jdbcTemplate.query(sql, new MapSqlParameterSource(), (rs, rowNum) -> {
             Groups item = new Groups();
-            item.setGroupId(rs.getInt("group_id"));
-            item.setGroupCode(rs.getString("group_code"));
-            item.setGroupName(rs.getString("group_name"));
+            item.setGroupId(rs.getInt("id"));
+            item.setGroupCode(rs.getString("code"));
+            item.setGroupName(rs.getString("name"));
             return item;
         });
     }
